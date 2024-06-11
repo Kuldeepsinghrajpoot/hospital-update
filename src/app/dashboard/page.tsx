@@ -12,7 +12,7 @@ async function page() {
 
   return (
     <div>
-      <Dashboard data={data} />
+      <Dashboard role={data} />
     </div>
   )
 }

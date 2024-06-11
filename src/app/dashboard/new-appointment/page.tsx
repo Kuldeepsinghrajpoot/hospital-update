@@ -1,5 +1,5 @@
 "use server"
-import React from 'react'
+import React, { ReactNode } from 'react'
 
 import {
   Table,
@@ -18,6 +18,11 @@ import DateTimer from './date';
 import axios from 'axios';
 import DeleteAppointment from '../delete-appointment/page';
 import Link from 'next/link';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/app/api/auth/[...nextauth]/auth-option';
+import UpdateAppointment from '../update-appointment/page';
+import { Update } from '../update-appointment/update';
+
 
 interface Patient {
   _id: string;
@@ -60,6 +65,9 @@ async function getDoctor() {
 async function page() {
   const data = await getData();
   const doctor = await getDoctor();
+
+  const Session:any = await getServerSession(authOptions)
+  const user = Session?.user
   return (
     <div>
       <div className="  pb-5 bg-muted/40 border">
@@ -80,8 +88,9 @@ async function page() {
             <TableHead>Gender</TableHead>
             <TableHead>Address</TableHead>
             <TableHead>Date</TableHead>
+            <TableHead>Update</TableHead>
             <TableHead>Print</TableHead>
-            <TableHead>Delete</TableHead>
+            {user?.role==='Admin'&&<TableHead>Delete</TableHead>}
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -94,8 +103,10 @@ async function page() {
               <TableCell>{values.Gender}</TableCell>
               <TableCell>{values.Address}</TableCell>
               <TableCell>{new Date(values.createdAt).toLocaleString()}</TableCell>
+              <TableCell className=' cursor-pointer'><UpdateAppointment userId={values?._id}/></TableCell>
+            {/* <TableCell className=' cursor-pointer'><Link href={`/dashboard/new-appointment?id=${values._id}`}><UpdateAppointment/> </Link> </TableCell> */}
               <TableCell className=' cursor-pointer'><Link href={`/appointment-print/${values?._id}`} target='_blank'><PrinterIcon /> </Link></TableCell>
-              <TableCell className='  cursor-pointer'><DeleteAppointment id={values._id} /></TableCell>
+              {user?.role==='Admin' && <TableCell className=' cursor-pointer'><DeleteAppointment id={values._id} /></TableCell>}
             </TableRow>
           ))}
         </TableBody>

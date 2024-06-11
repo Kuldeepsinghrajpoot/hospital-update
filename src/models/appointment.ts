@@ -4,8 +4,8 @@ import mongoose, { Schema } from "mongoose";
 export interface AppointmentSchema extends Document {
     Name: string;
     Doctor: string;
-    Phone: number;
-    Age: number;
+    Phone: string;
+    Age: string;
     Address: string;
     Gender: string;
     AppointmentId: string;
@@ -24,11 +24,11 @@ const Appointmentschema: Schema<AppointmentSchema> = new Schema({
         required: true
     },
     Phone: {
-        type: Number,
+        type: String,
         required: true
     },
     Age: {
-        type: Number,
+        type: String,
         required: true
         
     },

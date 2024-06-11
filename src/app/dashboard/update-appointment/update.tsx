@@ -1,17 +1,11 @@
 'use client';
 
-import React, { useCallback, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useForm, FormProvider, Controller } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { z } from 'zod';
@@ -19,64 +13,93 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { AppointmentVerified } from '@/schema/appointment';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
+import { SquarePen } from 'lucide-react';
+import Swal from 'sweetalert2';
 
-export function Appointment({ doctor }: { doctor: any }) {
-    const [isOpen, setIsOpen] = useState(false);
+interface Data {
+    name: any, age: any, gender: any, phone: any, address: any, DoctorName: any, doctorList: any
+}
+
+export function Update({ name, age, gender, phone, address, DoctorName, doctorList, id }: any) {
     const router = useRouter();
-    const formValues = useForm({
-        defaultValues: {
-            Name: "",
-            Age: '',
-            Gender: 'Male' as const,
-            Doctor: "",
-            Phone: "",
-            Address: "",
-        }
-    });
+    const [open, setOpen] = useState(false);
 
     const form = useForm<z.infer<typeof AppointmentVerified>>({
         resolver: zodResolver(AppointmentVerified),
-        defaultValues: formValues.getValues(),
+        defaultValues: {
+            Name: name || '',
+            Age: age || '',
+            Gender: gender || 'Male',
+            Doctor: DoctorName || '',
+            Phone: phone || '',
+            Address: address || '',
+        },
     });
 
-    const onSubmit = useCallback(async (values: any) => {
+    useEffect(() => {
+        form.reset({
+            Name: name,
+            Age: age,
+            Gender: gender,
+            Doctor: DoctorName,
+            Phone: phone,
+            Address: address,
+        });
+    }, [name, age, gender, DoctorName, phone, address, form]);
+
+    const onSubmit = useCallback(async (values: z.infer<typeof AppointmentVerified>) => {
+        console.log('Form values:', values);
+        
         try {
-            const response = await fetch('/api/appointment/create-appointment', {
-                method: 'POST',
+            const response = await fetch(`/api/appointment/update-appointment?id=${id}`, {
+                method: 'PUT',
                 body: JSON.stringify(values),
                 headers: {
-                    'Content-Type': 'application/json'
-                }
+                    'Content-Type': 'application/json',
+                },
             });
 
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                const errorData = await response.json();
+                throw new Error(`Network response was not ok: ${errorData.error || response.statusText}`);
             }
-            
-            toast.success("Appointment created successfully");
-            form.reset(); // Reset form fields
-            setIsOpen(false); // Close dialog
-            router.refresh();
 
+            const responseData = await response.json();
+            if (responseData.success) {
+                form.reset(); // Reset form fields
+               Swal.fire({
+                    icon: 'success',
+                    title: 'Appointment updated successfully',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+              
+                setOpen(false); // Close the dialog
+                router.refresh(); // Refresh the page or data
+            } else {
+                throw new Error(responseData.error || 'Unknown error');
+            }
         } catch (error: any) {
-            toast.error(`Failed to create appointment: ${error.message || error}`);
-            console.error(error);
+            toast.error(`Failed to update appointment: ${error.message || error}`);
+            console.error('Update error:', error);
         }
-    }, [form, router]);
+    
+    }, [id, form, router]);
 
     return (
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button variant="default">New Appointment</Button>
+                <div  onClick={() => setOpen(true)}>
+                    <SquarePen className="mr-2" />
+                </div>
             </DialogTrigger>
             <DialogContent className="w-[80vw] md:w-[50vw] lg:w-[40vw] xl:w-[30vw]">
                 <DialogHeader>
-                    <DialogTitle className="text-center py-5">New Appointment</DialogTitle>
-                    <DialogDescription className="items-center text-center">
-                        Please fill out the form below to create a new appointment.
+                    <DialogTitle className="text-center py-5">Update Appointment</DialogTitle>
+                    <DialogDescription className="text-center">
+                        Please update the form below to modify the appointment.
                     </DialogDescription>
                 </DialogHeader>
-
                 <FormProvider {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                         <FormField
@@ -149,7 +172,7 @@ export function Appointment({ doctor }: { doctor: any }) {
                                                     <SelectValue placeholder="Select" />
                                                 </SelectTrigger>
                                                 <SelectContent>
-                                                    {doctor?.map((doc: any, index: number) => (
+                                                    {doctorList?.map((doc: any, index: number) => (
                                                         <SelectItem key={index} value={`${doc.name} ${doc.lastname}`}>
                                                             {doc.name} {doc.lastname}
                                                         </SelectItem>
@@ -188,7 +211,7 @@ export function Appointment({ doctor }: { doctor: any }) {
                                 </FormItem>
                             )}
                         />
-                        <Button type="submit" className='w-full' variant={"default"}>Submit</Button>
+                        <Button type="submit" variant="default" className='w-full'>Submit</Button>
                     </form>
                 </FormProvider>
             </DialogContent>

@@ -23,6 +23,9 @@ import { Printer, Trash2 } from 'lucide-react';
 import axios from 'axios';
 import Link from 'next/link';
 import DeleteAppointment from '../delete-appointment/page';
+import { authOptions } from '@/app/api/auth/[...nextauth]/auth-option';
+import { getServerSession } from 'next-auth';
+import UpdateAppointment from '../update-appointment/page';
 
 interface Patient {
   _id: string;
@@ -52,6 +55,9 @@ async function getData() {
 }
 async function page() {
   const data = await getData();
+  const session=await getServerSession(authOptions);
+  const user=session?.user;
+
   return (
     <div>
       <div className="  pb-5 bg-muted/40 border ">
@@ -70,8 +76,10 @@ async function page() {
             <TableHead>Gender</TableHead>
             <TableHead>Address</TableHead>
             <TableHead>Date</TableHead>
+            <TableHead>Update</TableHead>
+
             <TableHead>Print</TableHead>
-            <TableHead>Delete</TableHead>
+            {user?.role=="Admin"&&<TableHead>Delete</TableHead>}
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -85,8 +93,10 @@ async function page() {
               <TableCell>{values.Gender}</TableCell>
               <TableCell>{values.Address}</TableCell>
               <TableCell>{new Date(values.createdAt).toUTCString()}</TableCell>
+            <TableCell className=' cursor-pointer'><UpdateAppointment userId={values?._id}  /></TableCell>
+
               <TableCell className=' cursor-pointer'><Link href={`/appointment-print/${values._id}`} target='_blank'><Printer /></Link></TableCell>
-              <TableCell className='  cursor-pointer'><DeleteAppointment id={values._id} /></TableCell>
+              {user?.role==='Admin' && <TableCell className=' cursor-pointer'><DeleteAppointment id={values._id} /></TableCell>}
 
 
             </TableRow>

@@ -26,13 +26,13 @@ const HomePage: React.FC = () => {
                     </div>
                     <nav className="flex space-x-4">
                         <Link href="/">
-                            <Button variant={'outline'} className=" hover:text-foreign-ground">Home</Button>
+                            <Button  className=" hover:text-foreign-ground">Home</Button>
                         </Link>
                         <Link href="#">
-                            <Button variant={'outline'} className=" hover:text-foreign-ground">Find Doctor</Button>
+                            <Button variant={'default'} className=" hover:text-foreign-ground">Find Doctor</Button>
                         </Link>
                         <Link href="#">
-                            <Button variant={'outline'} className=" hover:text-foreign-ground">Instant Care</Button>
+                            <Button variant={'default'} className=" hover:text-foreign-ground">Instant Care</Button>
                         </Link>
                     </nav>
                     <div>

@@ -7,6 +7,7 @@ import { Trash2 } from 'lucide-react';
 
 const DeleteAppointment = ({ id }:any) => {
     const router = useRouter();
+    console.log('id', id)
     const removeItem = async () => {
         const result = await Swal.fire({
           title: "Are you sure?",

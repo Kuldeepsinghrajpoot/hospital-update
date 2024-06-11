@@ -1,18 +1,16 @@
-
 import React from 'react'
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
 import axios from 'axios'
-import { LucideDelete, Trash2 } from 'lucide-react'
 import DeleteRole from '../delete-role/page'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/app/api/auth/[...nextauth]/auth-option'
 
 async function getManagerDatga() {
   try {
@@ -24,7 +22,8 @@ async function getManagerDatga() {
 }
 async function page() {
   const managerData = await getManagerDatga()
-
+const Session = await getServerSession(authOptions);
+const user = Session?.user;
   return (
     <div>
       <Table className=" overflow-x-auto bg-muted/40 rounded-md">
@@ -38,7 +37,7 @@ async function page() {
             <TableHead>Age</TableHead>
             <TableHead>Gender</TableHead>
             <TableHead>Address</TableHead>
-            <TableHead>Delete</TableHead>
+           {user?.role==="Admin"&& <TableHead>Delete</TableHead>}
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -51,7 +50,7 @@ async function page() {
               <TableCell>{data?.age}</TableCell>
               <TableCell>{data?.gender}</TableCell>
               <TableCell>{data?.address}</TableCell>
-              <TableCell className='text-center items-center flex justify-center'><DeleteRole id={data?._id}/></TableCell>
+              {user?.role==="Admin"&&<TableCell className='text-center items-center flex justify-center'><DeleteRole id={data?._id}/></TableCell>}
             </TableRow>
           ))}
         </TableBody>

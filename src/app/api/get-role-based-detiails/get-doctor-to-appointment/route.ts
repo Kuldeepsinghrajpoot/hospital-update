@@ -1,5 +1,4 @@
 import dbConnect from "@/lib/db";
-import admin from "@/models/admin";
 import SystemRole from "@/models/system-role";
 import { NextResponse } from 'next/server';
 

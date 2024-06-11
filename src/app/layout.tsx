@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import NextTopLoader from 'nextjs-toploader';
+import AuthProvider from "@/auth-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,19 +21,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} bg-background` } suppressHydrationWarning>
-        
-      <ThemeProvider
+      <body className={`${inter.className} bg-background`} suppressHydrationWarning>
+
+        <AuthProvider>
+          <ThemeProvider
             attribute="class"
             defaultTheme="dark"
             enableSystem
             disableTransitionOnChange
           >
-             <ToastContainer />
+            <ToastContainer />
             {children}
             <NextTopLoader />
           </ThemeProvider>
-        </body>
+        </AuthProvider>
+      </body>
     </html>
   );
 }

@@ -189,7 +189,7 @@ export function Dashboard({ children }: any) {
               <DropdownMenuItem><Link href={"/dashboard/update-password"}>Settings</Link>  </DropdownMenuItem>
               <DropdownMenuItem>Support</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={()=>signOut()}>Logout</DropdownMenuItem>
+              <DropdownMenuItem onClick={()=>signOut()} className=" cursor-pointer">Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </nav>

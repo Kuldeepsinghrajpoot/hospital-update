@@ -18,11 +18,12 @@ import { LoginSchema, LoginType } from '@/schema/login';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useCallback, useState } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import Swal from 'sweetalert2';
 
 export function Login() {
     const router = useRouter();
+    const pathname = usePathname();
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
     const form = useForm<LoginType>({
@@ -67,19 +68,23 @@ export function Login() {
             setIsDialogOpen(false); // Close the dialog
             router.replace('/dashboard');
         } else {
+            setIsDialogOpen(false); // Close the dialog
+
             Swal.fire({
                 icon: 'error',
                 title: 'Failed',
                 text: 'Failed to login.',
             });
+
         }
+    
     }, [router]);
 
     return (
         <div>
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                 <DialogTrigger asChild>
-                    <Button variant="outline">Login</Button>
+                    <Button variant="default">Login</Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
