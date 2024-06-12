@@ -3,11 +3,11 @@ import { Button } from '@/components/ui/button'
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import Link from 'next/link'
 import React from 'react'
-import { AddNewRole } from '../add-new-role/page'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/app/api/auth/[...nextauth]/auth-option'
 import NewDoctorPatients from '../new-doctor-patients-appointment/page'
 import Image from 'next/image'
+import { AddNewRole } from '../add-new-role/role'
 
 export default async function Dashboard({ role }: { role: any }) {
 

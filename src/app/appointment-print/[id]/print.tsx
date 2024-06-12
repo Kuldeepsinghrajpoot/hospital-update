@@ -13,6 +13,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { setTimeout } from 'timers';
 
 interface InvoiceProps {
   name: string;
@@ -33,77 +34,57 @@ const Invoice = ({ name, doctor, appointmentDate, appointmentId, phone, age, gen
       router.refresh();
     }
     // Uncomment below lines if you want to automatically print and close the window
-    window.print();
+    setTimeout(() => { window.print() }, 1000);
     // window.close();
   }, [router, name, doctor, appointmentDate, phone, age, gender, address]);
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
     date.setDate(date.getDate() + 7);
-    return date.toLocaleDateString();
+    return date.toDateString();
   };
-  const issueDate = (dateStr: string) => new Date(dateStr).toLocaleDateString();
+  const issueDate = (dateStr: string) => new Date(dateStr).toDateString();
 
   const formatTime = (dateStr: string) => new Date(dateStr).toLocaleTimeString();
 
   return (
-    <div className="invoice-print bg-white text-gray-500 p-2 w-screen h-screen">
-      <div className="flex justify-between items-center ">
-        <div>
+    <div className="invoice-print bg-white text-gray-500 p-2 h-full ">
+      <div className=" items-center h-full bg-white ">
+        <div className=' flex justify-between bg-white'>
           <div className="flex items-center  gap-2">
             <Img src="/favicon.png" width={50} height={50} alt="Logo" />
             <span className="app-brand-text font-bold text-2xl">Uday Clinic</span>
           </div>
-          <p className="mb-1">एफ-9, 10, फर्स्ट फ्लोर, वीरांगना जे.डी.ए. कॉम्पलैक्स, मेडिकल कॉलेज के पास,</p>
-          <p className="mb-1"> झॉसी,झॉसी, उत्तर प्रदेश, भारत</p>
-          <p className="mb-0">+91 7398391052</p>
-        </div>
-        <div className="text-right">
-          <h4 className="font-bold">Appointment No. #{appointmentId}</h4>
           <div>
-            <span className="text-gray-500">Till Valid</span>
-            <span className="font-bold">: {formatDate(appointmentDate)}</span>
+            <div className="text-right">
+              <h4 className="font-bold">Appointment No. #{appointmentId}</h4>
+              <div>
+                <span className="text-gray-500">Till Valid</span>
+                <span className="font-bold">: {formatDate(appointmentDate)}</span>
+              </div>
+            </div>
           </div>
+        </div>
+        <p className="mb-1">एफ-9, 10, फर्स्ट फ्लोर, वीरांगना जे.डी.ए. कॉम्पलैक्स, मेडिकल कॉलेज के पास,</p>
+        <p className="mb-1"> झॉसी,झॉसी, उत्तर प्रदेश, भारत</p>
+        <p className="mb-0">+91 7398391052</p>
+
+      </div>
+
+      <div className="grid grid-cols-2 md:grid-cols-2 border-0 justify-between items-center ">
+        <div className="w-full border-none relative h-max py-5">
+          <div className="border-0  capitalize"> <strong>Patient Name:</strong> {name}</div>
+          <div className=" capitalize"> <strong>Address:</strong> {address}</div>
+          <div className=" capitalize"><strong> Doctor Name:</strong> Dr. {doctor}</div>
+        </div>
+
+        <div className="relative">
+          <div className=""><strong>Date Issued:</strong> {issueDate(appointmentDate)}, {formatTime(appointmentDate)}</div>
+          <div className=""><strong>Age/Gender:</strong>  {age} Years / {gender}</div>
+          <div className=""><strong>Phone:</strong>  {phone}</div>
         </div>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-2  ">
-        <div>
-          <Table className="w-full border-none">
-            <TableBody>
-              <TableRow>
-                <TableCell className="border-1 font-semibold ">Patient Name</TableCell>
-                <TableCell className="">: {name}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className=" font-semibold ">Address</TableCell>
-                <TableCell className="">: {address}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className=" font-semibold ">Doctor Name</TableCell>
-                <TableCell className="">: Dr. {doctor}</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </div>
-        <div>
-          <Table className="w-full bottom-0">
-            <TableBody>
-              <TableRow>
-                <TableCell className=" font-semibold ">Date Issued</TableCell>
-                <TableCell className="">: {issueDate(appointmentDate)}, {formatTime(appointmentDate)}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className=" font-semibold ">Age/Gender</TableCell>
-                <TableCell className="">: {age} Years / {gender}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className=" font-semibold ">Phone</TableCell>
-                <TableCell className="">: {phone}</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </div>
-      </div>
+
 
       <div className="">
         <Table className="table-auto w-full border border-gray-300 border-collapse">
