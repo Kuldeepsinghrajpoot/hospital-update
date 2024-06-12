@@ -26,7 +26,7 @@ import DeleteAppointment from '../delete-appointment/page';
 import { authOptions } from '@/app/api/auth/[...nextauth]/auth-option';
 import { getServerSession } from 'next-auth';
 import UpdateAppointment from '../update-appointment/page';
-import DoctorPatients from '../patients-doctor/page';
+import DateTimer from '../new-appointment/date';
 
 interface Patient {
   _id: string;
@@ -44,9 +44,10 @@ interface ApiResponse {
 }
 
 // Fetch data with type annotation
-async function getData() {
+async function getData({name}: {name: string}) {
+
   try {
-    const response = await axios.get(`${process.env.URI}api/appointment/get-patients`)
+    const response = await axios.get(`${process.env.URI}/api/appointment/get-patients-doctor?id=${name}`)
     if (!response) throw new Error('Failed to fetch data');
     return response.data
   } catch (error) {
@@ -54,20 +55,19 @@ async function getData() {
     return { patients: [], totalPages: 0 } // Default return in case of error
   }
 }
-async function page() {
-  const data = await getData();
-  const session = await getServerSession(authOptions);
+async function DoctorPatients() {
+  const session=await getServerSession(authOptions);
   const user = session?.user;
+  const name = user?.name+' '+user?.lastname;
+  const data = await getData({name});
 
-  if (user?.role === "Doctor") {
-    return <DoctorPatients />
-  }
+
   return (
     <div>
-      <div className="  pb-5 bg-muted/40 border ">
+      <div className="  pb-5 bg-muted/40 border">
         <div className='h-14 items-center text-center  flex justify-between'>
-          <div className='flex px-5  justify-center font-bold  h-full  text-center items-center'> Patients</div>
-          <div className='flex px-5  justify-center font-bold  h-full  text-center items-center'></div>
+          <div className='flex px-5  justify-center   h-full  text-center items-center gap-2'> <span className='font-bold'>Patients</span>
+            </div>
         </div>
       </div>
       <Table className=" overflow-x-auto bg-muted/40 border">
@@ -80,14 +80,11 @@ async function page() {
             <TableHead>Gender</TableHead>
             <TableHead>Address</TableHead>
             <TableHead>Date</TableHead>
-            <TableHead>Update</TableHead>
-
-            <TableHead>Print</TableHead>
-            {user?.role == "Admin" && <TableHead>Delete</TableHead>}
+     
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data.patients.map((values: any) => (
+          {data?.patients?.map((values: any) => (
             <TableRow key={values._id}>
               <TableCell>{values.AppointmentId}</TableCell>
               <TableCell>{values?.Name}</TableCell>
@@ -97,12 +94,7 @@ async function page() {
               <TableCell>{values.Gender}</TableCell>
               <TableCell>{values.Address}</TableCell>
               <TableCell>{new Date(values.createdAt).toUTCString()}</TableCell>
-              <TableCell className=' cursor-pointer'><UpdateAppointment userId={values?._id} /></TableCell>
-
-              <TableCell className=' cursor-pointer'><Link href={`/appointment-print/${values._id}`} target='_blank'><Printer /></Link></TableCell>
-              {user?.role === 'Admin' && <TableCell className=' cursor-pointer'><DeleteAppointment id={values._id} /></TableCell>}
-
-
+            
             </TableRow>
           ))}
         </TableBody>
@@ -135,4 +127,4 @@ async function page() {
   )
 }
 
-export default page
+export default DoctorPatients

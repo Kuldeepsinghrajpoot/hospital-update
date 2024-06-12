@@ -150,7 +150,7 @@ export function Appointment({ doctor }: { doctor: any }) {
                                                 </SelectTrigger>
                                                 <SelectContent>
                                                     {doctor?.map((doc: any, index: number) => (
-                                                        <SelectItem key={index} value={`${doc.name} ${doc.lastname}`}>
+                                                        <SelectItem key={index} value={`${doc.name+' '+doc.lastname}`}>
                                                             {doc.name} {doc.lastname}
                                                         </SelectItem>
                                                     ))}

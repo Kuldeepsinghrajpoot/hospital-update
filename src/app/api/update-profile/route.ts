@@ -2,7 +2,8 @@ import dbConnect from "@/lib/db";
 import SystemRole, { SystemRoleSchema } from "@/models/system-role";
 
 export async function PUT(req: Request, res: Response) {
-    const id = "6551e74776712767ce3b7ef4";
+   const {searchParams} = new URL(req.url)
+   const id = searchParams.get('id');
     try {
         dbConnect();
         const { name, lastname, email, contactnumber, address,age,gender }: SystemRoleSchema = await req.json();

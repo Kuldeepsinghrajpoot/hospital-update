@@ -15,6 +15,7 @@ export const authOptions: NextAuthOptions = {
 
                 try {
                     const user = await SystemRole.findOne({ email }).exec()
+                    console.log(user)
                     if (!user) {
                         throw new Error("No user found with this email")
                     }
@@ -27,6 +28,7 @@ export const authOptions: NextAuthOptions = {
                             ...plainUser,
                             id: plainUser._id?.toString(), // Ensure id is a string
                             name: plainUser.name,
+                            lastname: plainUser.lastname,
                             email: plainUser.email,
                             role: plainUser.role || 'Admin',
                         }
@@ -44,6 +46,8 @@ export const authOptions: NextAuthOptions = {
             if (user) {
                 token._id = user._id?.toString()
                 token.name = user.name
+                token.lastname = user.lastname
+
                 token.role = user.role
             }
             return token
@@ -53,6 +57,7 @@ export const authOptions: NextAuthOptions = {
                 ...session.user,
                 _id: token._id,
                 name: token.name,
+                lastname: token.lastname,
                 role: token.role,
             }
             return session

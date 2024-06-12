@@ -37,8 +37,10 @@ export function AddNewRole() {
 
     const onSubmit = useCallback(async (values: z.infer<typeof RoleVerified>) => {
         try {
-            const response = await axios.post<SystemRoleSchema>('/api/admin/insert-role', values, {
-                headers: { 'Content-Type': 'application/json' }
+            const response = await fetch('/api/admin/insert-role', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(values)
             });
 
             if (response.status === 200) {
@@ -159,29 +161,24 @@ export function AddNewRole() {
                                 <FormItem>
                                     <FormLabel>Role</FormLabel>
                                     <FormControl>
-                                        <Controller
-                                            control={form.control}
-                                            name="role"
-                                            render={({ field }) => (
-                                                <RadioGroup value={field.value} onValueChange={field.onChange}>
-                                                    <div className="flex justify-between gap-2 cursor-pointer">
-                                                        <div className="flex items-center space-x-2 w-[13vw] border h-10 rounded-md px-2 cursor-pointer">
-                                                            <RadioGroupItem value="Doctor" id="doctor" />
-                                                            <Label htmlFor="doctor" className="cursor-pointer">Doctor</Label>
-                                                        </div>
-                                                        <div className="flex items-center space-x-2 w-[13vw] border h-10 rounded-md px-2 cursor-pointer">
-                                                            <RadioGroupItem value="Manager" id="manager" />
-                                                            <Label htmlFor="manager" className="cursor-pointer">Manager</Label>
-                                                        </div>
-                                                    </div>
-                                                </RadioGroup>
-                                            )}
-                                        />
+                                        <RadioGroup value={field.value} onValueChange={field.onChange}>
+                                            <div className="flex justify-between gap-2 cursor-pointer">
+                                                <div className="flex items-center space-x-2 w-[13vw] border h-10 rounded-md px-2 cursor-pointer">
+                                                    <RadioGroupItem value="Doctor" id="doctor" />
+                                                    <Label htmlFor="doctor" className="cursor-pointer">Doctor</Label>
+                                                </div>
+                                                <div className="flex items-center space-x-2 w-[13vw] border h-10 rounded-md px-2 cursor-pointer">
+                                                    <RadioGroupItem value="Manager" id="manager" />
+                                                    <Label htmlFor="manager" className="cursor-pointer">Manager</Label>
+                                                </div>
+                                            </div>
+                                        </RadioGroup>
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
                             )}
                         />
+
                         <FormField
                             name="address"
                             control={form.control}

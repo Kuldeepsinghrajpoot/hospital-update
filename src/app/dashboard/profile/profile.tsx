@@ -13,6 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { UpdateRoleVerified } from "@/schema/update-role";
 import { BookUser, Mail, Phone, User, User2Icon } from "lucide-react";
 import Swal from "sweetalert2";
+import { getSession, useSession } from "next-auth/react";
 // Assuming you have this component
 
 interface ProfileFormProps {
@@ -23,8 +24,9 @@ interface ProfileFormProps {
     Address: string;
     useAge:string,
     Gender:string
+    id:string
 }
-export function Profile({ Name, Lastname, Email, teliphone, Address,useAge,Gender }: ProfileFormProps) {
+export function Profile({ Name, Lastname, Email, teliphone, Address,useAge,Gender,id }: ProfileFormProps) {
     const formValues = useForm({
         defaultValues: {
             name: Name,
@@ -37,7 +39,6 @@ export function Profile({ Name, Lastname, Email, teliphone, Address,useAge,Gende
         }
     });
 
-
     const form = useForm<z.infer<typeof UpdateRoleVerified>>({
         resolver: zodResolver(UpdateRoleVerified),
         defaultValues: formValues.getValues(),
@@ -46,7 +47,7 @@ export function Profile({ Name, Lastname, Email, teliphone, Address,useAge,Gende
     const onSubmit = React.useCallback(async (data: any) => {
         console.log(data);
        
-        const response = await fetch(`/api/update-profile`, {
+        const response = await fetch(`/api/update-profile?id=${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -69,7 +70,7 @@ export function Profile({ Name, Lastname, Email, teliphone, Address,useAge,Gende
                 text: 'Failed to update your profile',
             })
         }
-    }, []);
+    }, [id]);
 
     return (
         <FormProvider {...form} >

@@ -72,7 +72,7 @@ async function page() {
     <div>
       <div className="  pb-5 bg-muted/40 border">
         <div className='h-14 items-center text-center  flex justify-between'>
-          <div className='flex px-5  justify-center   h-full  text-center items-center gap-2'> <span className='font-bold'>Appointment's</span>
+          <div className='flex px-5  justify-center   h-full  text-center items-center gap-2'> <span className='font-bold'>Appointment&#39;s</span>
             [<span className='gap-5'><DateTimer /></span>]</div>
           <div className='flex px-5  justify-center font-bold  h-full  text-center items-center'><Appointment doctor={doctor.doctor} /></div>
         </div>
@@ -82,7 +82,7 @@ async function page() {
         <TableHeader>
           <TableRow>
             <TableHead>Id</TableHead>
-            <TableHead>Patient's Name</TableHead>
+            <TableHead>Patient&#39;s Name</TableHead>
             <TableHead>Doctor</TableHead>
             <TableHead>Phone</TableHead>
             <TableHead>Gender</TableHead>

@@ -20,9 +20,8 @@ interface DoctorData {
     lastname: string;
 }
 const UpdateAppointment = ({userId}:any) => {
-    const searchParams = useSearchParams();
-    const search = searchParams.get('id');
-console.log('idwersserewreeeeeeeee',userId)
+
+
     const [data, setData] = useState<AppointmentData | null>(null);
     const [doctor, setDoctor] = useState<DoctorData | null>(null);
 
@@ -58,7 +57,7 @@ console.log('idwersserewreeeeeeeee',userId)
         };
 
         fetchData();
-    }, []);
+    }, [userId]);
 
     // Only render the Update component if data is available
     if (!data) {

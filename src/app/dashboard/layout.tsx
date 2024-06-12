@@ -14,7 +14,9 @@ export default function DashboardLayout({
 }) {
   return (
     <section>
-      <Dashboard children={children} />
+      <Dashboard  >
+      {children}
+      </Dashboard>
     </section>
   )
 }

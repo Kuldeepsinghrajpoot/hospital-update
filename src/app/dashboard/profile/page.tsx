@@ -2,6 +2,8 @@ import axios from 'axios';
 import React from 'react'
 import { Profile } from './profile';
 import { SystemRoleSchema } from '@/models/system-role';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/app/api/auth/[...nextauth]/auth-option';
 
 async function getdata({id}:{id:string}){
   try{
@@ -17,11 +19,13 @@ async function getdata({id}:{id:string}){
 
 
 async function page() {
-const data:SystemRoleSchema = await getdata({id: '6551e74776712767ce3b7ef4'})
+  const session= await getServerSession(authOptions);
+  const user = session?.user;
+const data:SystemRoleSchema = await getdata({id: user?._id})
 
   return (
     <div>
-      <Profile Name={data.name} Lastname={data.lastname} Email={data.email}   teliphone={data.contactnumber} Address={data.address} useAge={String(data?.age)} Gender={data?.gender}/>
+      <Profile Name={data.name} Lastname={data.lastname} Email={data.email}   teliphone={data.contactnumber} Address={data.address} useAge={String(data?.age)} Gender={data?.gender} id={user?._id}/>
     </div>
   )
 }

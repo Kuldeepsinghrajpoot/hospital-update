@@ -1,10 +1,10 @@
 import dbConnect from "@/lib/db";
-import admin from "@/models/admin";
+import Appointment from "@/models/appointment";
 
 
 export async function GET() {
     dbConnect();
 
-    const data = await admin.find({}).select("-password");
+    const data = await Appointment.find({}).select("-password");
     return Response.json(data)
 }
