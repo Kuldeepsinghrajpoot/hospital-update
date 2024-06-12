@@ -72,7 +72,7 @@ const{data:Session}=useSession()
             <nav className="grid items-start px-2 text-sm font-medium lg:px-4 sticky top-0 gap-1 z-[999]">
               <span className="capitalize grid items-start text-sm font-medium sticky top-5 my-1">DASHBOARD</span>
               {filteredNavItems.map((item, index: number) => (
-                <Link
+                index==0&&<Link
                   key={index}
                   href={item.href}
                   className={`flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${router === item.href ? 'rounded-lg bg-muted text-primary' : ''}`}
@@ -80,6 +80,22 @@ const{data:Session}=useSession()
                   <item.icon className="h-4 w-4" />
                   {item.name}
                 </Link>
+
+                
+              ))}
+
+<span className="capitalize grid items-start text-sm font-medium sticky top-5 my-1">APPS & PAGE</span>
+              {filteredNavItems.map((item, index: number) => (
+                index!=0&&<Link
+                  key={index}
+                  href={item.href}
+                  className={`flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${router === item.href ? 'rounded-lg bg-muted text-primary' : ''}`}
+                >
+                  <item.icon className="h-4 w-4" />
+                  {item.name}
+                </Link>
+
+                
               ))}
             </nav>
           </div>

@@ -1,5 +1,5 @@
-'use client';
-
+// src/components/login.tsx
+'use client'
 import { Button } from "@/components/ui/button";
 import {
     Dialog,
@@ -23,7 +23,6 @@ import Swal from 'sweetalert2';
 
 export function Login() {
     const router = useRouter();
-    const pathname = usePathname();
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
     const form = useForm<LoginType>({
@@ -37,7 +36,6 @@ export function Login() {
     const onSubmit = useCallback(async (values: LoginType) => {
         const { email, password } = values;
 
-        // Show please wait message
         Swal.fire({
             title: 'Please wait...',
             text: 'Logging in...',
@@ -54,7 +52,7 @@ export function Login() {
             redirect: false,
         });
 
-        Swal.close(); // Close the "Please wait..." message
+        Swal.close();
 
         if (res?.ok) {
             Swal.fire({
@@ -65,19 +63,17 @@ export function Login() {
                 showConfirmButton: false
             });
 
-            setIsDialogOpen(false); // Close the dialog
+            setIsDialogOpen(false);
             router.replace('/dashboard');
         } else {
-            setIsDialogOpen(false); // Close the dialog
+            setIsDialogOpen(false);
 
             Swal.fire({
                 icon: 'error',
                 title: 'Failed',
                 text: 'Failed to login.',
             });
-
         }
-    
     }, [router]);
 
     return (

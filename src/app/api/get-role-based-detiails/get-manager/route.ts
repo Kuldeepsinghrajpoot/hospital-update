@@ -1,7 +1,6 @@
 import dbConnect from "@/lib/db";
-import admin from "@/models/admin";
 import SystemRole from "@/models/system-role";
-import { NextResponse } from 'next/server';
+
 
 export async function GET() {
     try {
@@ -28,9 +27,9 @@ export async function GET() {
             },
         ]);
 
-        return NextResponse.json({ manager, message: "Manager details fetched successfully", status: 200 });
+        return Response.json({ manager, message: "Manager details fetched successfully", status: 200 });
     } catch (error) {
         console.log(error);
-        return NextResponse.json({ error: 'Error fetching manager details', status: 500 });
+        return Response.json({ error: 'Error fetching manager details', status: 500 });
     }
 }

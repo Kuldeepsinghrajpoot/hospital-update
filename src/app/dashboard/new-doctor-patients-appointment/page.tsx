@@ -55,9 +55,10 @@ async function getData({ name }: { name: string }) {
     }
 }
 async function NewDoctorPatients() {
-    const session = await getServerSession(authOptions)
+    const session=await getServerSession(authOptions);
     const user = session?.user;
-    const data = await getData(user);
+    const name = user?.name+' '+user?.lastname;
+    const data = await getData({name});
 
     return (
         <div>

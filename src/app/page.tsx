@@ -6,7 +6,8 @@ import Introduction from './landing-page/introduction/page';
 import Features from './landing-page/feature/page';
 import Footer from './landing-page/footer/page';
 import Image from 'next/image';
-import { Login } from './auth/login/page';
+import { Login } from './auth/login';
+
 // Sample images
 
 
