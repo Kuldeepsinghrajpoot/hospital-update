@@ -10,7 +10,6 @@ import { Login } from './auth/login';
 
 // Sample images
 
-
 const HomePage: React.FC = () => {
     return (
         <div className=' bg-white'>
