@@ -25,7 +25,7 @@ export default async function Dashboard({ role }: { role: any }) {
 
     }
     return (
-        <div>
+        <div className=''>
             <div className='pb-14'>
                 <h1 className=' text-2xl py-5  font-bold'>Role List</h1>
 
@@ -37,8 +37,8 @@ export default async function Dashboard({ role }: { role: any }) {
                     assigned role an administrator can have access to what user needs.
                 </div>
             </div>
-            <div className='grid grid-cols-1 md:grid-cols-3 gap-4 '>
-                <Card className="md:col-span-1 bg-muted/40" x-chunk="dashboard-05-chunk-0">
+            <div className='grid grid-cols-1 md:grid-cols-3 gap-4 border-none   '>
+                <Card className="md:col-span-1 " x-chunk="dashboard-05-chunk-0 drop-shadow">
                     <CardHeader className="pb-3">
                         {/* Administrator */}
                         <div className=' flex justify-between'>
@@ -54,7 +54,7 @@ export default async function Dashboard({ role }: { role: any }) {
                         <Button > <Link href={""}>visit page</Link></Button>
                     </CardFooter>
                 </Card>
-                <Card className="md:col-span-1 bg-muted/40" x-chunk="dashboard-05-chunk-0">
+                <Card className="md:col-span-1 " x-chunk="dashboard-05-chunk-0">
                     <CardHeader className="pb-3">
                         <div className=' flex justify-between'>
                             <CardTitle>Manager</CardTitle>
@@ -71,7 +71,7 @@ export default async function Dashboard({ role }: { role: any }) {
                     </CardFooter>
                 </Card>
                 {/* cards */}
-                <Card className="md:col-span-1 bg-muted/40" x-chunk="dashboard-05-chunk-0">
+                <Card className="md:col-span-1 " x-chunk="dashboard-05-chunk-0">
                     <CardHeader className="pb-3">
 
                         <div className=' flex justify-between'>
@@ -91,7 +91,7 @@ export default async function Dashboard({ role }: { role: any }) {
                 </Card>
 
                 {/* bottom three  */}
-                <Card className="md:col-span-1 bg-muted/40" x-chunk="dashboard-05-chunk-0">
+                <Card className="md:col-span-1 " x-chunk="dashboard-05-chunk-0">
                     <CardHeader className="pb-3">
                         <div className=' flex justify-between'>
                             <CardTitle>Patients</CardTitle>
@@ -108,7 +108,7 @@ export default async function Dashboard({ role }: { role: any }) {
 
                     </CardFooter>
                 </Card>
-                <Card className="md:col-span-1 bg-muted/40" x-chunk="dashboard-05-chunk-0">
+                <Card className="md:col-span-1 " x-chunk="dashboard-05-chunk-0">
                     <CardHeader className="pb-3">
                         <div className=' flex justify-between'>
                             <CardTitle>User</CardTitle>
@@ -126,7 +126,7 @@ export default async function Dashboard({ role }: { role: any }) {
                     </CardFooter>
                 </Card>
                 {/* cards */}
-                {data?.role === 'Admin' && <Card className="md:col-span-1 bg-muted/40" x-chunk="dashboard-05-chunk-0">
+                {data?.role === 'Admin' && <Card className="md:col-span-1 " x-chunk="dashboard-05-chunk-0">
                     <CardHeader className="pb-3">
                         <div className=' flex justify-between'>
                             <CardTitle>Add New Role</CardTitle>

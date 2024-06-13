@@ -75,7 +75,7 @@ export function Profile({ Name, Lastname, Email, teliphone, Address,useAge,Gende
     return (
         <FormProvider {...form} >
             <form onSubmit={form.handleSubmit(onSubmit)} >
-                <Card className="w-full max-w-2xl mx-auto">
+                <Card className="w-full max-w-2xl mx-auto bg-background">
                     <CardHeader>
                         <CardTitle>Profile Details</CardTitle>
                     </CardHeader>

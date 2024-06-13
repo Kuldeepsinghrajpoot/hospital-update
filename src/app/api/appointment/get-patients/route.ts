@@ -1,28 +1,28 @@
-import { NextRequest, NextResponse } from 'next/server';
+
 import dbConnect from '@/lib/db';
-import Appointment from '@/models/appointment';
+import Appointment, { AppointmentSchema } from '@/models/appointment';
 
 interface PaginateOptions {
   page: number;
   limit: number;
 }
 
-export async function GET(req: NextRequest) {
+export async function GET(req: Request) {
   try {
- 
-    await dbConnect();
-    const patients = await Appointment.find({}).exec();
 
-  
-    return NextResponse.json({
+    await dbConnect();
+    const patients: AppointmentSchema[] = await Appointment.find().exec();
+
+
+    return Response.json({
       patients,
-     
+
       message: 'Patient details fetched successfully',
       status: 200,
     });
   } catch (error) {
     console.error('Error fetching patient data:', error);
-    return NextResponse.json(
+    return Response.json(
       {
         message: 'Internal server error',
         status: 500,

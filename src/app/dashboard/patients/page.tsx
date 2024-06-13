@@ -40,18 +40,18 @@ interface Patient {
 
 interface ApiResponse {
   patients: Patient[];
-  totalPages: number;
+
 }
 
 // Fetch data with type annotation
-async function getData() {
+async function getData(): Promise<ApiResponse> {
   try {
-    const response = await axios.get(`${process.env.URI}api/appointment/get-patients`)
+    const response = await fetch(`${process.env.URI}/api/appointment/get-patients`)
     if (!response) throw new Error('Failed to fetch data');
-    return response.data
+    return response.json()
   } catch (error) {
     console.error(error)
-    return { patients: [], totalPages: 0 } // Default return in case of error
+    return { patients: [] } // Default return in case of error
   }
 }
 async function page() {
