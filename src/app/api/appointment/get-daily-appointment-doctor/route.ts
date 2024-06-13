@@ -3,10 +3,13 @@ import dbConnect from "@/lib/db";
 import Appointment from "@/models/appointment";
 
 
-export async function GET(req:Request) {
 
+export async function GET(req: Request, res: Response) {
     const {searchParams} = new URL(req.url)
-    const name = searchParams.get('id')
+    const name = searchParams.get('id');
+    if (!name) {
+        return Response.json({ error: 'name is required', status: 400 })
+    }
   
     try {
         await dbConnect();

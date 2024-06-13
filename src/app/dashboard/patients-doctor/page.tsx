@@ -27,6 +27,7 @@ import { authOptions } from '@/app/api/auth/[...nextauth]/auth-option';
 import { getServerSession } from 'next-auth';
 import UpdateAppointment from '../update-appointment/page';
 import DateTimer from '../new-appointment/date';
+import TableData from '../table/table';
 
 interface Patient {
   _id: string;
@@ -61,7 +62,7 @@ async function DoctorPatients() {
   const name = user?.name+' '+user?.lastname;
   const data = await getData({name});
 
-
+return <TableData appointmentTable={data.patients} />
   return (
     <div>
       <div className="  pb-5 bg-muted/40 border">

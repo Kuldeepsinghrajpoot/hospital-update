@@ -3,17 +3,9 @@
 import Img from 'next/image';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableCaption,
-  TableFooter,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { setTimeout } from 'timers';
+import { useTheme } from 'next-themes';
+
 
 interface InvoiceProps {
   name: string;
@@ -37,95 +29,126 @@ const Invoice = ({ name, doctor, appointmentDate, appointmentId, phone, age, gen
     setTimeout(() => { window.print() }, 1000);
     // window.close();
   }, [router, name, doctor, appointmentDate, phone, age, gender, address]);
+
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
     date.setDate(date.getDate() + 7);
     return date.toDateString();
   };
+
   const issueDate = (dateStr: string) => new Date(dateStr).toDateString();
-
   const formatTime = (dateStr: string) => new Date(dateStr).toLocaleTimeString();
-
+  const { themes } = useTheme();
   return (
-    <div className="invoice-print bg-white text-gray-500 p-2 h-full ">
-      <div className=" items-center h-full bg-white ">
-        <div className=' flex justify-between bg-white'>
-          <div className="flex items-center  gap-2">
-            <Img src="/favicon.png" width={50} height={50} alt="Logo" />
-            <span className="app-brand-text font-bold text-2xl">Uday Clinic</span>
-          </div>
-          <div>
-            <div className="text-right">
-              <h4 className="font-bold">Appointment No. #{appointmentId}</h4>
-              <div>
-                <span className="text-gray-500">Till Valid</span>
-                <span className="font-bold">: {formatDate(appointmentDate)}</span>
+    <div className="min-h-screen  bg-white text-gray-500 px-4">
+
+      <div className="invoice-print bg-white text-gray-500 h-full">
+        <div className="items-center h-full bg-white">
+          <div className="flex justify-between bg-white">
+            <div className="flex items-center gap-2">
+              <Img src="/favicon.png" width={50} height={50} alt="Logo" />
+              <span className="app-brand-text font-bold text-2xl">Uday Clinic</span>
+            </div>
+            <div>
+              <div className="text-right">
+                <h4 className="font-bold">Appointment No. #{appointmentId}</h4>
+                <div>
+                  <span className="text-gray-500">Till Valid</span>
+                  <span className="font-bold">: {formatDate(appointmentDate)}</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <p className="mb-1">एफ-9, 10, फर्स्ट फ्लोर, वीरांगना जे.डी.ए. कॉम्पलैक्स, मेडिकल कॉलेज के पास,</p>
-        <p className="mb-1"> झॉसी,झॉसी, उत्तर प्रदेश, भारत</p>
-        <p className="mb-0">+91 7398391052</p>
-
-      </div>
-
-      <div className="grid grid-cols-2 md:grid-cols-2 border-0 justify-between items-center ">
-        <div className="w-full border-none relative h-max py-5">
-          <div className="border-0  capitalize"> <strong>Patient Name:</strong> {name}</div>
-          <div className=" capitalize"> <strong>Address:</strong> {address}</div>
-          <div className=" capitalize"><strong> Doctor Name:</strong> Dr. {doctor}</div>
+          <p className="mb-1">एफ-9, 10, फर्स्ट फ्लोर, वीरांगना जे.डी.ए. कॉम्पलैक्स, मेडिकल कॉलेज के पास,</p>
+          <p className="mb-1">झॉसी, झॉसी, उत्तर प्रदेश, भारत</p>
+          <p className="mb-0">+91 7398391052</p>
         </div>
 
+        <div className="grid grid-cols-2 md:grid-cols-2 border-0 justify-between items-center">
+          <div className="w-full border-none relative h-max py-5">
+            <table className="w-full border-collapse">
+              <tbody>
+                <tr>
+                  <td className="border-0 capitalize font-bold">Patient Name:</td>
+                  <td className="border-0 capitalize">{name}</td>
+                </tr>
+                <tr>
+                  <td className="border-0 capitalize font-bold">Address:</td>
+                  <td className="border-0 capitalize">{address}</td>
+                </tr>
+                <tr>
+                  <td className="border-0 capitalize font-bold">Doctor Name:</td>
+                  <td className="border-0 capitalize">Dr. {doctor}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         <div className="relative">
-          <div className=""><strong>Date Issued:</strong> {issueDate(appointmentDate)}, {formatTime(appointmentDate)}</div>
-          <div className=""><strong>Age/Gender:</strong>  {age} Years / {gender}</div>
-          <div className=""><strong>Phone:</strong>  {phone}</div>
+          <table className="w-full border-collapse">
+            <tbody>
+              <tr>
+                <td className="border-0 capitalize font-bold">Date Issued:</td>
+                <td className="border-0">
+                  {issueDate(appointmentDate)}, {formatTime(appointmentDate)}
+                </td>
+              </tr>
+              <tr>
+                <td className="border-0 capitalize font-bold">Age/Gender:</td>
+                <td className="border-0">
+                  {age} Years / {gender}
+                </td>
+              </tr>
+              <tr>
+                <td className="border-0 capitalize font-bold">Phone:</td>
+                <td className="border-0">{phone}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-      </div>
+        </div>
 
 
+        <div className="border border-gray-50  ">
+          <table className="w-full border-collapse border border-gray-300">
+            <thead className="bg-gray-100">
+              <tr>
+                <th className="p-2 border border-gray-300 text-left">Charges Name</th>
+                <th className="p-2 border border-gray-300 text-left">Description</th>
+                <th className="p-2 border border-gray-300 text-right">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="p-2 border border-gray-300">For Consultation Fee</td>
+                <td className="p-2 border border-gray-300">Dr. {doctor}</td>
+                <td className="p-2 border border-gray-300 text-right">₹300.00</td>
+              </tr>
+              <tr>
+                <td colSpan={2} className="p-2 border border-gray-300">
+                  <div className='flex justify-between'>
+                    <div>
+                      <p><span className="font-semibold">Payment Mode:</span> CASH</p>
+                      <p><span className="font-semibold">Received a sum of rupees three hundred</span></p>
+                    </div>
+                    <div className='text-right font-semibold'>Subtotal:</div>
+                  </div>
+                </td>
+                <td className="p-2 border border-gray-300 text-right">₹300.00</td>
+              </tr>
+              <tr>
+                <td colSpan={2} className="p-2 text-right font-semibold border border-gray-300">Total:</td>
+                <td className="p-2 text-right font-semibold border border-gray-300">₹300.00</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
-      <div className="">
-        <Table className="table-auto w-full border border-gray-300 border-collapse">
-
-          <TableHeader>
-            <TableRow className="bg-gray-100">
-              <TableHead className="p-2 border border-gray-300">Charges Name</TableHead>
-              <TableHead className="p-2 border border-gray-300">Description</TableHead>
-              <TableHead className="p-2 border border-gray-300 text-right">Amount</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow>
-              <TableCell className="border border-gray-300 p-2">For Consultation Fee</TableCell>
-              <TableCell className="border border-gray-300 p-2">Dr. {doctor}</TableCell>
-              <TableCell className="border border-gray-300 p-2 text-right">300.00</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell colSpan={2} className="p-2 border border-gray-300">
-                <div className=' flex justify-between'>
-                  <div> <p><span className="font-semibold">Payment Mode:</span> CASH</p>
-                    <p><span className="font-semibold">Received a sum of rupees three hundred</span></p></div>
-                  <div className=' text-right font-semibold  '>Subtotal:</div>
-                </div>
-              </TableCell>
-              <TableCell className="p-2 border border-gray-300 text-right">300.00</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell colSpan={2} className="p-2 text-right font-semibold border border-gray-300">Total:</TableCell>
-              <TableCell className="p-2 text-right font-semibold border border-gray-300">300.00</TableCell>
-            </TableRow>
-
-          </TableBody>
-        </Table>
-      </div>
-
-      <div className="">
-        <span className="font-bold">Note:</span>
-        <span> Your appointment is valid for 7 days only.</span>
-        <br />
-        <span> Thank you for visting !! </span>
+        <div className="">
+          <span className="font-bold">Note:</span>
+          <span> Your appointment is valid for 7 days only.</span>
+          <br />
+          <span>Thank you for visiting 🙂🙂🙂!</span>
+        </div>
       </div>
     </div>
   );

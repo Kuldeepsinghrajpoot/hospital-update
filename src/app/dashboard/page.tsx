@@ -2,9 +2,11 @@ import React from 'react'
 import Dashboard from './role-list/page'
 import axios from 'axios'
 import { SystemRoleSchema } from '@/models/system-role'
-async function getData() {
+import { getServerSession } from 'next-auth'
+import { authOptions } from '../api/auth/[...nextauth]/auth-option'
+async function getData({id}:{id:string}) {
   try {
-    const response = await axios.get(`${process.env.URI}/api/admin/count-all-record`)
+    const response = await axios.get(`http://localhost:3000/api/admin/count-all-record?id=${id}`)
     if (!response) throw new Error('Failed to fetch data');
     return response.data
   } catch (error) {
@@ -13,7 +15,9 @@ async function getData() {
   }
 }
 async function page() {
-  const data:SystemRoleSchema = await getData();
+  const Session = await getServerSession(authOptions);
+  const user = Session?.user;
+  const data:SystemRoleSchema[] = await getData({id: user?._id});
   
 
   return (

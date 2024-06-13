@@ -26,6 +26,7 @@ import Link from 'next/link';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/auth-option';
 import DateTimer from '../new-appointment/date';
+import TableData from '../table/table';
 
 
 interface Patient {
@@ -69,64 +70,7 @@ async function NewDoctorPatients() {
                     </div>
                 </div>
             </div>
-            <Table className=" overflow-x-auto bg-muted/40 border">
-                <TableHeader>
-                    <TableRow>
-                        <TableHead>Id</TableHead>
-                        <TableHead>Patient&#39;s Name</TableHead>
-                        <TableHead>Doctor</TableHead>
-                        <TableHead>Phone</TableHead>
-                        <TableHead>Gender</TableHead>
-                        <TableHead>Address</TableHead>
-                        <TableHead>Date</TableHead>
-
-
-
-
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {data.patients.map((values: any) => (
-                        <TableRow key={values._id}>
-                            <TableCell>{values.AppointmentId}</TableCell>
-                            <TableCell>{values?.Name}</TableCell>
-
-                            <TableCell>{values.Doctor}</TableCell>
-                            <TableCell>{values.Phone}</TableCell>
-                            <TableCell>{values.Gender}</TableCell>
-                            <TableCell>{values.Address}</TableCell>
-                            <TableCell>{new Date(values.createdAt).toUTCString()}</TableCell>
-
-
-
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-            <Pagination>
-                <PaginationContent>
-                    <PaginationItem>
-                        <PaginationPrevious href="#" />
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationLink >1</PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationLink href="#" isActive>
-                            2
-                        </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationLink href="#">3</PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationEllipsis />
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationNext href="#" />
-                    </PaginationItem>
-                </PaginationContent>
-            </Pagination>
+          <TableData appointmentTable={data.patients} />
         </div>
     )
 }

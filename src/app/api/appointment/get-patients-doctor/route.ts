@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
 
     const { searchParams } = new URL(req.url)
     const name = searchParams.get('id')
-    console.log(name)
+    // console.log(name)
     try {
         await dbConnect();
         const patients = await Appointment.aggregate([

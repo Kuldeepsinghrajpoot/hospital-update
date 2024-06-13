@@ -15,7 +15,7 @@ export const authOptions: NextAuthOptions = {
 
                 try {
                     const user = await SystemRole.findOne({ email }).exec()
-                    console.log(user)
+                    // console.log(user) //todo: remove this line after testing
                     if (!user) {
                         throw new Error("No user found with this email")
                     }

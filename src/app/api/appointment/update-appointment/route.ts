@@ -7,7 +7,7 @@ import { Schema, Types } from "mongoose";
 export async function GET(req: Request, res: Response) {
     const { searchParams } = new URL(req.url)
     const id = searchParams.get('id'); 
-console.log('server-id',id)
+// console.log('server-id',id) //todo : remove this line after testing
    
 
     try {

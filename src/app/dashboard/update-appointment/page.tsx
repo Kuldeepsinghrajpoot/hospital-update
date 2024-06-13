@@ -47,7 +47,7 @@ const UpdateAppointment = ({userId}:any) => {
         const fetchData = async () => {
             if (userId) {
                 try {
-                    const response = await axios.get(`/api/get-role-based-detiails/get-doctor-to-appointment`);
+                    const response = await axios.get(`/api/get-role-based-detiails/get-doctor-to-appointment?id=${userId}`);
                     const result: DoctorData = response.data.doctor;
                     setDoctor(result);
                 } catch (error) {

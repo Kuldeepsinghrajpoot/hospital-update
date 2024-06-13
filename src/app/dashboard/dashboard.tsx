@@ -31,14 +31,17 @@ import { usePathname } from 'next/navigation';
 import Image from "next/image";
 import { signOut, useSession } from "next-auth/react";
 import { useTheme } from 'next-themes'; // Import useTheme from next-themes
+import { Switch } from "@radix-ui/react-switch";
+import { Login } from "../auth/login";
+import { Label } from "@radix-ui/react-label";
+import { SwitchDemo } from "./switch";
 
 export function Dashboard({ children }: { children: React.ReactNode }) {
-  const { data: session } = useSession();
-  const user = session?.user;
+
   const { theme, setTheme } = useTheme(); // Destructure theme and setTheme
   const router = usePathname();
   const { data: Session } = useSession();
-
+const user = Session?.user;
   // Define navigation items
   const navitems = [
     { name: "Dashboard", icon: Home, href: "/dashboard" },
@@ -57,13 +60,13 @@ export function Dashboard({ children }: { children: React.ReactNode }) {
     : navitems;
 
   return (
-    <div className={`grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr] ${theme !== 'dark' ? 'bg-[rgb(249,246,250)]' : 'bg-muted/40'}` }> {/* Apply dynamic background */}
+    <div className={`grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr] ${theme !== 'dark' ? 'bg-[rgb(249,246,250)]' : 'bg-muted/40'}`}> {/* Apply dynamic background */}
       <div className={`hidden border-r ${theme !== 'dark' ? 'bg-[rgb(248,247,250)]' : 'bg-muted/40'} md:block`}> {/* Apply dynamic background */}
         <div className="flex h-full max-h-screen flex-col gap-2 sticky top-0 bg-background">
           <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6 bg-background">
             <Link href="/dashboard" className="flex items-center gap-2 font-semibold">
               <Image src="/favicon.png" alt="avatar" width={30} height={30} className="rounded-full" />
-              <span className="">{Session?.user?.name}</span>
+              <span className="">Uday Clinic</span>
             </Link>
             <Button variant="outline" size="icon" className="ml-auto h-8 w-8">
               <Bell className="h-4 w-4" />
@@ -122,7 +125,7 @@ export function Dashboard({ children }: { children: React.ReactNode }) {
             </SheetContent>
           </Sheet>
           <div className="w-full grid grid-cols-1 sticky top-0">
-            <form>
+            {/* <form>
               <div className="relative">
                 <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
                 <Input
@@ -131,7 +134,8 @@ export function Dashboard({ children }: { children: React.ReactNode }) {
                   className="w-full appearance-none bg-background pl-8 shadow-none md:w-2/3 lg:w-1/3"
                 />
               </div>
-            </form>
+            </form> */}
+           Hi {user?.role} {Session?.user?.name} {user?.lastname}
           </div>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -149,26 +153,7 @@ export function Dashboard({ children }: { children: React.ReactNode }) {
               <DropdownMenuItem onClick={() => signOut()} className="cursor-pointer">Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-          <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon">
-          <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-          <span className="sr-only">Toggle theme</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")}>
-          Light
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
-          Dark
-        </DropdownMenuItem>
-        {/* <DropdownMenuItem onClick={() => setTheme("system")}>
-          System
-        </DropdownMenuItem> */}
-      </DropdownMenuContent>
-    </DropdownMenu>
+     <SwitchDemo/>
         </nav>
         <main className={`flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6 `}>
           {children}

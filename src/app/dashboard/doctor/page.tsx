@@ -16,18 +16,20 @@ import DeleteRole from '../delete-role/page'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/app/api/auth/[...nextauth]/auth-option'
 
-async function getManagerDatga() {
+async function getManagerDatga({id}:{id:string}) {
   try {
-    const response = await axios.get(`${process.env.URI}/api/get-role-based-detiails/get-doctor`)
+    const response = await axios.get(`${process.env.URI}/api/get-role-based-detiails/get-doctor?id=${id}`)
     return response.data.doctor
   } catch (error) {
     console.error(error)
   }
 }
 async function page() {
-  const managerData = await getManagerDatga()
-const Session = await getServerSession(authOptions);
-const user = Session?.user;
+ 
+  const Session = await getServerSession(authOptions);
+  const user = Session?.user;
+  const managerData = await getManagerDatga({id: user?._id})
+
   return (
     <div>
       <Table className=" overflow-x-auto bg-muted/40 rounded-md">

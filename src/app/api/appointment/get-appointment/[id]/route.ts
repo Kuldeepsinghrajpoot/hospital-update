@@ -5,10 +5,11 @@ export async function GET(req: Request, { params }: { params: { id: any } }) {
     try {
         await dbConnect();
         const { id } = params;
-        console.log(id)
+        // console.log(id)
         const appointment = await Appointment.findById({_id:id}).select("-__v");
         return Response.json({ appointment, message: "Appointment fetched successfully", status: 200 })
     } catch (error) {
         console.log(error)
+        return Response.json({ message: "Internal server error", status: 500 }, { status: 500 })
     }
 }

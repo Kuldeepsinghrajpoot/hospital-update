@@ -27,6 +27,7 @@ import { authOptions } from '@/app/api/auth/[...nextauth]/auth-option';
 import { getServerSession } from 'next-auth';
 import UpdateAppointment from '../update-appointment/page';
 import DoctorPatients from '../patients-doctor/page';
+import TableData from '../table/table';
 
 interface Patient {
   _id: string;
@@ -44,9 +45,9 @@ interface ApiResponse {
 }
 
 // Fetch data with type annotation
-async function getData(): Promise<ApiResponse> {
+async function getData({id}:{id:string}) {
   try {
-    const response = await fetch(`${process.env.URI}/api/appointment/get-patients`)
+    const response = await fetch(`${process.env.URI}/api/appointment/get-patients?id=${id}`)
     if (!response) throw new Error('Failed to fetch data');
     return response.json()
   } catch (error) {
@@ -55,13 +56,15 @@ async function getData(): Promise<ApiResponse> {
   }
 }
 async function page() {
-  const data = await getData();
   const session = await getServerSession(authOptions);
   const user = session?.user;
+  const data = await getData({ id: user?._id});
 
   if (user?.role === "Doctor") {
     return <DoctorPatients />
   }
+
+  return <TableData appointmentTable={data.patients} />
   return (
     <div>
       <div className="  pb-5 bg-muted/40 border ">
