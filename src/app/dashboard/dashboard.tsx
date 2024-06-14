@@ -124,20 +124,19 @@ export function Dashboard({ children }: { children: React.ReactNode }) {
                 </Link>
               ))}
               <span className="capitalize grid items-start text-sm font-medium sticky top-5 my-1">APPS & PAGE</span>
-              {filteredNavItems.map((item, index: number) => {
-                return (
-                  <SheetClose asChild>
-                 { index != 0 && <Link
-                  key={index}
-                  href={item.href}
-                  className={`flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${router === item.href ? 'rounded-lg bg-muted text-primary' : ''}`}
-                >
-                  <item.icon className="h-4 w-4" />
-                  {item.name}
-                </Link>}
-              </SheetClose>
-                )
-              }
+              {filteredNavItems.map((item, index: number) => (
+                <SheetClose asChild key={index}>
+                  {index != 0 && <Link
+
+                    href={item.href}
+                    className={`flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${router === item.href ? 'rounded-lg bg-muted text-primary' : ''}`}
+                  >
+                    <item.icon className="h-4 w-4" />
+                    {item.name}
+                  </Link>}
+                </SheetClose>
+              )
+
               )}
             </SheetContent>
           </Sheet>
