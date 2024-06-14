@@ -76,9 +76,9 @@ const HomePage: React.FC = () => {
                         </SheetTrigger>
                         <SheetContent side={'left'}>
                                 {navitems.map((item, index) => (
-                            <SheetClose asChild>
+                            <SheetClose asChild  key={index} >
                                     <Link
-                                        key={index}
+                                       
                                         href={item.href}
                                         className={`flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${router === item.href ? 'rounded-lg ' : ''}`}
                                     >
