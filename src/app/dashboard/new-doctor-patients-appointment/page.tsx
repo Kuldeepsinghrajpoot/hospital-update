@@ -26,7 +26,7 @@ import Link from 'next/link';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/auth-option';
 import DateTimer from '../new-appointment/date';
-import TableData from '../table/table';
+import TableData from '../patients-table/table';
 
 
 interface Patient {

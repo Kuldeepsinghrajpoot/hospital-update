@@ -22,7 +22,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/auth-option';
 import UpdateAppointment from '../update-appointment/page';
 import { Update } from '../update-appointment/update';
-import TableData from '../table/table';
+import TableData from '../patients-table/table';
 
 
 interface Patient {
@@ -72,11 +72,11 @@ async function page() {
   const user = Session?.user
   return (
     <div>
-      <div className="  pb-5 bg-card border">
-        <div className='h-14 items-center text-center  flex justify-between'>
-          <div className='flex px-5  justify-center   h-full  text-center items-center gap-2'> <span className='font-bold'>Appointment&#39;s</span>
+      <div className=" py-4 md:py-0 w-full pb-5 ">
+        <div className='h-14 items-center text-center w-full  md:flex md:justify-between  grid md:grid-cols-2 '>
+          <div className='flex md:px-5  justify-center   h-full  text-center items-center gap-2'> <span className='font-bold'>Appointment&#39;s</span>
             [<span className='gap-5'><DateTimer /></span>]</div>
-          <div className='flex px-5  justify-center font-bold  h-full  text-center items-center'><Appointment doctor={doctor.doctor} /></div>
+          <div className='flex md:px-5 text-foreground  justify-center font-bold  h-full  text-center items-center'><Appointment doctor={doctor.doctor} /></div>
         </div>
       </div>
       <TableData appointmentTable={data.dailyAppointment} />

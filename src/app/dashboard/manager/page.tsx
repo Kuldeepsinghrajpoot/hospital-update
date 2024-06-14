@@ -1,16 +1,8 @@
 import React from 'react'
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
 import axios from 'axios'
-import DeleteRole from '../delete-role/page'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/app/api/auth/[...nextauth]/auth-option'
+import SystemRoleTableData from '../system-role-table/table'
 
 async function getManagerDatga({id}:{id:string}) {
   try {
@@ -24,39 +16,8 @@ async function page() {
   const Session = await getServerSession(authOptions);
   const user = Session?.user;
   const managerData = await getManagerDatga({id: user?._id})
-  return (
-    <div>
-      <Table className=" overflow-x-auto bg-muted/40 rounded-md">
+  return <SystemRoleTableData  systemRole={managerData} />
 
-        <TableHeader>
-          <TableRow>
-            <TableHead>First Name</TableHead>
-            <TableHead>Last Name</TableHead>
-            <TableHead>Email</TableHead>
-            <TableHead>Contact Number</TableHead>
-            <TableHead>Age</TableHead>
-            <TableHead>Gender</TableHead>
-            <TableHead>Address</TableHead>
-           {user?.role==="Admin"&& <TableHead>Delete</TableHead>}
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {managerData?.map((data: any) => (
-            <TableRow key={data?._id}>
-              <TableCell>{data?.name}</TableCell>
-              <TableCell>{data?.lastname}</TableCell>
-              <TableCell>{data?.email}</TableCell>
-              <TableCell>{data?.contactnumber}</TableCell>
-              <TableCell>{data?.age}</TableCell>
-              <TableCell>{data?.gender}</TableCell>
-              <TableCell>{data?.address}</TableCell>
-              {user?.role==="Admin"&&<TableCell className='text-center items-center flex justify-center'><DeleteRole id={data?._id}/></TableCell>}
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </div>
-  )
 }
 
 export default page

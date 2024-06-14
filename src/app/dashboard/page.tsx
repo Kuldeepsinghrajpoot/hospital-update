@@ -6,7 +6,7 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '../api/auth/[...nextauth]/auth-option'
 async function getData({id}:{id:string}) {
   try {
-    const response = await axios.get(`http://localhost:3000/api/admin/count-all-record?id=${id}`)
+    const response = await axios.get(`${process.env.URI}/api/admin/count-all-record?id=${id}`)
     if (!response) throw new Error('Failed to fetch data');
     return response.data
   } catch (error) {

@@ -13,6 +13,7 @@ import {
   LockKeyhole,
   SunIcon,
   MoonIcon,
+  UserCircle2,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -25,7 +26,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetClose, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 import { usePathname } from 'next/navigation';
 import Image from "next/image";
@@ -41,7 +42,7 @@ export function Dashboard({ children }: { children: React.ReactNode }) {
   const { theme, setTheme } = useTheme(); // Destructure theme and setTheme
   const router = usePathname();
   const { data: Session } = useSession();
-const user = Session?.user;
+  const user = Session?.user;
   // Define navigation items
   const navitems = [
     { name: "Dashboard", icon: Home, href: "/dashboard" },
@@ -111,17 +112,33 @@ const user = Session?.user;
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="flex flex-col">
-              <span className="grid items-start text-sm font-medium sticky top-0 my-1">Dashboard</span>
-              {filteredNavItems.map((item, index) => (
-                <Link
+              <span className="capitalize grid items-start text-sm font-medium sticky top-5 my-1">DASHBOARD</span>
+              {filteredNavItems.map((item, index: number) => (
+                index == 0 && <Link
                   key={index}
                   href={item.href}
-                  className={`flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${router === item.href ? 'rounded-lg bg-muted' : ''}`}
+                  className={`flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${router === item.href ? 'rounded-lg bg-muted text-primary' : ''}`}
                 >
                   <item.icon className="h-4 w-4" />
                   {item.name}
                 </Link>
               ))}
+              <span className="capitalize grid items-start text-sm font-medium sticky top-5 my-1">APPS & PAGE</span>
+              {filteredNavItems.map((item, index: number) => {
+                return (
+                  <SheetClose asChild>
+                 { index != 0 && <Link
+                  key={index}
+                  href={item.href}
+                  className={`flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${router === item.href ? 'rounded-lg bg-muted text-primary' : ''}`}
+                >
+                  <item.icon className="h-4 w-4" />
+                  {item.name}
+                </Link>}
+              </SheetClose>
+                )
+              }
+              )}
             </SheetContent>
           </Sheet>
           <div className="w-full grid grid-cols-1 sticky top-0">
@@ -135,14 +152,15 @@ const user = Session?.user;
                 />
               </div>
             </form> */}
-           Hi {user?.role} {Session?.user?.name} {user?.lastname}
+            Hi {user?.role} {Session?.user?.name} {user?.lastname}
           </div>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="icon" className="rounded-full">
-                <Image src="/favicon.png" alt="avatar" width={8} height={8} className="h-8 w-8 rounded-full" />
-                <span className="sr-only">Toggle user menu</span>
-              </Button>
+              <button className=" border-none ">
+                <UserCircle2 className=" w-9 h-9 border-none" />
+                {/* <Image src="/favicon.png" alt="avatar" width={8} height={8} className="h-8 w-8 rounded-full" /> */}
+
+              </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
@@ -153,9 +171,9 @@ const user = Session?.user;
               <DropdownMenuItem onClick={() => signOut()} className="cursor-pointer">Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-     <SwitchDemo/>
+          <SwitchDemo />
         </nav>
-        <main className={`flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6 `}>
+        <main className={`flex flex-1 flex-col gap-4 md:p-4  lg:gap-6 lg:p-6 `}>
           {children}
         </main>
       </div>

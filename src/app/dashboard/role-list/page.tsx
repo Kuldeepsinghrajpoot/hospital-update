@@ -25,7 +25,7 @@ export default async function Dashboard({ role }: { role: any }) {
 
     }
     return (
-        <div className=''>
+        <div className='p-4'>
             <div className='pb-14'>
                 <h1 className=' text-2xl py-5  font-bold'>Role List</h1>
 
