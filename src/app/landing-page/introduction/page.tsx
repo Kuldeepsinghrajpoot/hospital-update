@@ -5,15 +5,15 @@ import React from 'react';
 function Introduction() {
    
     return (
-        <div className='h-full md:md:w-full text-gray-500 bg-white dark:bg-background  '>
+        <div className='h-full md:md:w-full text-gray-500 bg-white  '>
             <div className=''>
                 <div className='grid grid-cols-1 md:grid-cols-2'>
                     <div className='h-full md:w-full flex justify-center items-center md:p-4'>
                         <div className='text-center md:space-y-4'>
-                            <p className='text-[11vh]   font-bold text-black dark:text-white md:px-6'>
+                            <p className='text-[11vh]   font-bold text-black  md:px-6'>
                                 Find <span className='text-blue-700'>Best Clinic</span> To Get Solutions.
                             </p>
-                            <p className='text-black dark:text-white text-xl md:px-10'>
+                            <p className='text-black  text-xl md:px-10'>
                                 Health is one of the most important things for us, therefore immediately check your health for your good. Appointment
                             </p>
                         </div>

@@ -65,77 +65,7 @@ async function page() {
   }
 
   return <TableData appointmentTable={data.patients} />
-  return (
-    <div>
-      <div className="  pb-5 bg-muted/40 border ">
-        <div className='h-14 items-center text-center  flex justify-between'>
-          <div className='flex px-5  justify-center font-bold  h-full  text-center items-center'> Patients</div>
-          <div className='flex px-5  justify-center font-bold  h-full  text-center items-center'></div>
-        </div>
-      </div>
-      <Table className=" overflow-x-auto bg-muted/40 border">
-        <TableHeader>
-          <TableRow>
-            <TableHead>Id</TableHead>
-            <TableHead>Patient&apos;s Name</TableHead>
-            <TableHead>Doctor</TableHead>
-            <TableHead>Phone</TableHead>
-            <TableHead>Gender</TableHead>
-            <TableHead>Address</TableHead>
-            <TableHead>Date</TableHead>
-            <TableHead>Update</TableHead>
-
-            <TableHead>Print</TableHead>
-            {user?.role == "Admin" && <TableHead>Delete</TableHead>}
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {data.patients.map((values: any) => (
-            <TableRow key={values._id}>
-              <TableCell>{values.AppointmentId}</TableCell>
-              <TableCell>{values?.Name}</TableCell>
-
-              <TableCell>{values.Doctor}</TableCell>
-              <TableCell>{values.Phone}</TableCell>
-              <TableCell>{values.Gender}</TableCell>
-              <TableCell>{values.Address}</TableCell>
-              <TableCell>{new Date(values.createdAt).toUTCString()}</TableCell>
-              <TableCell className=' cursor-pointer'><UpdateAppointment userId={values?._id} /></TableCell>
-
-              <TableCell className=' cursor-pointer'><Link href={`/appointment-print/${values._id}`} target='_blank'><Printer /></Link></TableCell>
-              {user?.role === 'Admin' && <TableCell className=' cursor-pointer'><DeleteAppointment id={values._id} /></TableCell>}
-
-
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-      <Pagination>
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious href="#" />
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink >1</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="#" isActive>
-              2
-            </PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="#">3</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationEllipsis />
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationNext href="#" />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
-    </div>
-  )
+ 
 }
 
 export default page

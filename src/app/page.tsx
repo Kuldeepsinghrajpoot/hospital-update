@@ -31,7 +31,7 @@ const HomePage: React.FC = () => {
     ];
     const router = usePathname();
     return (
-        <div className=''>
+        <div className='dark:bg-white'>
             <nav className='bg-white hidden  h-24 w-full md:flex justify-between px-4 items-center text-center drop-shadow-md sticky top-0 z-[999]'>
                 <div className='flex justify-start gap-4 text-center items-center'>
                     <Image src={"/favicon.png"} alt='icon' width={50} height={24} />

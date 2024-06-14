@@ -72,14 +72,14 @@ async function page() {
   const user = Session?.user
   return (
     <div>
-      <div className=" py-4 md:py-0 w-full pb-5 ">
+      <div className=" py-4 md:py-0 w-full pb-5 sticy top-24 ">
         <div className='h-14 items-center text-center w-full  md:flex md:justify-between  grid md:grid-cols-2 '>
-          <div className='flex md:px-5  justify-center   h-full  text-center items-center gap-2'> <span className='font-bold'>Appointment&#39;s</span>
+          <div className='flex md:px-5  justify-center    text-center items-center gap-2'> <span className='font-bold'>Appointment&#39;s</span>
             [<span className='gap-5'><DateTimer /></span>]</div>
-          <div className='flex md:px-5 text-foreground  justify-center font-bold  h-full  text-center items-center'><Appointment doctor={doctor.doctor} /></div>
+          <div className='flex md:px-5 text-foreground  justify-center font-bold   text-center items-center'><Appointment doctor={doctor.doctor} /></div>
         </div>
-      </div>
       <TableData appointmentTable={data.dailyAppointment} />
+      </div>
 
     </div>
   )

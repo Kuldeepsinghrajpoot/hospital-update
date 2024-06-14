@@ -11,11 +11,11 @@ export function SwitchDemo() {
     };
 
     return (
-        <div className={`flex justify-between items-center  ${theme==='light'?"text-black":"  text-black"}`}>
+        <div className={`flex justify-between items-center  ${theme==='light'?"dark:text-black":"  dark:text-white"}`}>
             {/* <Login /> */}
             <div className="flex items-center space-x-2">
                 <Switch id="theme-switch" onCheckedChange={() => handleThemeChange()} onChange={handleThemeChange} />
-                <Label className={`${theme==='light'?"text-black":" text-black"}`} htmlFor="theme-switch">{theme === 'light' ? 'Dark Mode' : 'Light Mode'}</Label>
+                <Label className={`${theme==='light'?"text-black":" text-green-800"}`} htmlFor="theme-switch">{theme === 'light' ? 'Dark' : 'Light'}</Label>
             </div>
         </div>
     );
