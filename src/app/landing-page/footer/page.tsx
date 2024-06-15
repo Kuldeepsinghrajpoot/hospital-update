@@ -60,8 +60,9 @@ function Footer() {
             </div>
 
             {/* Footer Bottom */}
-            <div className="container mx-auto mt-8 px-4 flex justify-between items-center">
-                <p>© {new Date().getFullYear()} Student Power Club. All rights reserved.</p>
+            <div className="container mx-auto mt-8 px-4  items-center">
+                <p>© {new Date().getFullYear()} Student Power Club.</p>
+                <p>Mob - 9144462693</p>
                 
                 {/* Your Logo Component Goes Here */}
             </div>

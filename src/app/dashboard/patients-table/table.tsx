@@ -24,12 +24,14 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import DeleteAppointment from '../delete-appointment/page'
-import Link from 'next/link'
 import dynamic from 'next/dynamic'
+import Link from 'next/link'
 import { useSession } from "next-auth/react"
 import { format } from 'date-fns'
 import { PrinterIcon } from "lucide-react"
+
+// Dynamically import DeleteAppointment
+const DeleteAppointment = dynamic(() => import('../delete-appointment/page'), { ssr: false })
 
 const UpdateAppointment = dynamic(() => import('../update-appointment/page'), { ssr: false })
 
@@ -40,6 +42,7 @@ const columnHeaders = {
   Doctor: "Doctor",
   Phone: "Phone",
   Gender: "Gender",
+  Age: "Age",
   Address: "Address",
   createdAt: "Date",
   update: "Update",
@@ -53,6 +56,7 @@ interface Patient {
   Name: string
   Doctor: string
   Phone: string
+  Age: string
   Gender: string
   Address: string
   createdAt: string
@@ -96,11 +100,6 @@ const columns = (role: string | undefined): ColumnDef<Patient>[] => {
       ),
       cell: ({ row }) => <div>{row.getValue("AppointmentId")}</div>,
     },
-    // {
-    //   accessorKey: "AppointmentId",
-    //   header: columnHeaders.AppointmentId,
-    //   cell: ({ row }) => <div>{row.getValue("AppointmentId")}</div>,
-    // },
     {
       accessorKey: "Name",
       header: ({ column }) => (
@@ -130,6 +129,11 @@ const columns = (role: string | undefined): ColumnDef<Patient>[] => {
       cell: ({ row }) => <div>{row.getValue("Gender")}</div>,
     },
     {
+      accessorKey: "Age",
+      header: columnHeaders.Age,
+      cell: ({ row }) => <div>{row.getValue("Age")}</div>,
+    },
+    {
       accessorKey: "Address",
       header: columnHeaders.Address,
       cell: ({ row }) => <div>{row.getValue("Address")}</div>,
@@ -157,26 +161,31 @@ const columns = (role: string | undefined): ColumnDef<Patient>[] => {
         </Link>
       ),
     },
-  ]
+  ];
 
   // Conditionally add the 'delete' column for non-manager roles
   if (role !== "Manager") {
     basicColumns.push({
       id: "delete",
       header: columnHeaders.delete,
-      cell: ({ row }) => <DeleteAppointment id={row.original._id} />,
+      cell: ({ row }) => (
+        <div className="bg-card">
+          <DeleteAppointment id={row.original._id} />
+        </div>
+      ),
       enableHiding: false,
-    })
+    });
   }
 
-  return basicColumns
-}
+  return basicColumns;
+};
+
 export default function TableData({ appointmentTable }: { appointmentTable: Patient[] }) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
-  const [data, setData] = React.useState<Patient[]>(appointmentTable)
+  const data: Patient[] = appointmentTable;
 
   const { data: session } = useSession()
   const role = session?.user?.role
@@ -193,10 +202,10 @@ export default function TableData({ appointmentTable }: { appointmentTable: Pati
     onColumnFiltersChange: setColumnFilters,
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
-  })
+  });
 
   return (
-    <div className="bg-background rounded-md drop-shadow-md px-5 h-full md:w-full w-screen overflow-hidden">
+    <div className="rounded-md  capitalize drop-shadow-md px-5 h-full md:w-full w-screen overflow-hidden">
       <div className="md:w-full">
         <div className="flex items-center py-4">
           <Input
@@ -242,7 +251,7 @@ export default function TableData({ appointmentTable }: { appointmentTable: Pati
                 </TableRow>
               ))}
             </TableHeader>
-            <TableBody>
+            <TableBody className=" capitalize">
               {table.getRowModel().rows?.length ? (
                 table.getRowModel().rows.map((row) => (
                   <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>

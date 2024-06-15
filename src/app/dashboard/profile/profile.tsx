@@ -20,7 +20,7 @@ interface ProfileFormProps {
     Name: string;
     Lastname: string;
     Email: string;
-    teliphone: number;
+    teliphone: string;
     Address: string;
     useAge:string,
     Gender:string
@@ -34,7 +34,7 @@ export function Profile({ Name, Lastname, Email, teliphone, Address,useAge,Gende
             email: Email,
             gender: Gender,
             age: useAge,
-            contactnumber: Number(teliphone), // Convert Phone to number if it's a string
+            contactnumber: teliphone, // Convert Phone to number if it's a string
             address: Address
         }
     });
@@ -45,7 +45,7 @@ export function Profile({ Name, Lastname, Email, teliphone, Address,useAge,Gende
     })
 
     const onSubmit = React.useCallback(async (data: any) => {
-        console.log(data);
+        // console.log(data);
        
         const response = await fetch(`/api/update-profile?id=${id}`, {
             method: 'PUT',

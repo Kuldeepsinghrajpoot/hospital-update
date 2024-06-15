@@ -15,7 +15,7 @@ async function page({params}:any) {
     const data = await getAppointment(id)
 
   return (
-    <div>
+    <div className='bg-green-900 dark:bg-red-900'>
       <Invoice name={data.Name} doctor={data.Doctor} appointmentDate={data.createdAt} appointmentId={data.AppointmentId} phone={data.Phone} age={data.Age} gender={data.Gender} address={data.Address} />
     </div>
   )

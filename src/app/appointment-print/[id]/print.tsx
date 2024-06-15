@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation';
 import { setTimeout } from 'timers';
 import { useTheme } from 'next-themes';
 
-
 interface InvoiceProps {
   name: string;
   doctor: string;
@@ -25,9 +24,7 @@ const Invoice = ({ name, doctor, appointmentDate, appointmentId, phone, age, gen
     if (!name || !doctor || !appointmentDate || !phone || !age || !gender || !address) {
       router.refresh();
     }
-    // Uncomment below lines if you want to automatically print and close the window
     setTimeout(() => { window.print() }, 1000);
-    // window.close();
   }, [router, name, doctor, appointmentDate, phone, age, gender, address]);
 
   const formatDate = (dateStr: string) => {
@@ -39,11 +36,12 @@ const Invoice = ({ name, doctor, appointmentDate, appointmentId, phone, age, gen
   const issueDate = (dateStr: string) => new Date(dateStr).toDateString();
   const formatTime = (dateStr: string) => new Date(dateStr).toLocaleTimeString();
   const { themes } = useTheme();
-  return (
-    <div className="min-h-screen  bg-white text-gray-500 px-4">
 
-      <div className="invoice-print bg-white text-gray-500 h-full">
-        <div className="items-center h-full bg-white">
+  return (
+    <div className="min-h-screen h-full max-h-screen dark:red-900 bg-white text-gray-500 print:max-h-full print:h-auto px-4">
+
+      <div className="invoice-print bg-white text-gray-500 h-full print:h-auto">
+        <div className="items-center h-full bg-white print:h-auto">
           <div className="flex justify-between bg-white">
             <div className="flex items-center gap-2">
               <Img src="/favicon.png" width={50} height={50} alt="Logo" />
@@ -83,32 +81,31 @@ const Invoice = ({ name, doctor, appointmentDate, appointmentId, phone, age, gen
               </tbody>
             </table>
           </div>
-        <div className="relative">
-          <table className="w-full border-collapse">
-            <tbody>
-              <tr>
-                <td className="border-0 capitalize font-bold">Date Issued:</td>
-                <td className="border-0">
-                  {issueDate(appointmentDate)}, {formatTime(appointmentDate)}
-                </td>
-              </tr>
-              <tr>
-                <td className="border-0 capitalize font-bold">Age/Gender:</td>
-                <td className="border-0">
-                  {age} Years / {gender}
-                </td>
-              </tr>
-              <tr>
-                <td className="border-0 capitalize font-bold">Phone:</td>
-                <td className="border-0">{phone}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+          <div className="relative">
+            <table className="w-full border-collapse">
+              <tbody>
+                <tr>
+                  <td className="border-0 capitalize font-bold">Date Issued:</td>
+                  <td className="border-0">
+                    {issueDate(appointmentDate)}, {formatTime(appointmentDate)}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="border-0 capitalize font-bold">Age/Gender:</td>
+                  <td className="border-0">
+                    {age} Years / {gender}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="border-0 capitalize font-bold">Phone:</td>
+                  <td className="border-0">{phone}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
 
-
-        <div className="border border-gray-50  ">
+        <div className="border border-gray-50">
           <table className="w-full border-collapse border border-gray-300">
             <thead className="bg-gray-100">
               <tr>
@@ -125,12 +122,12 @@ const Invoice = ({ name, doctor, appointmentDate, appointmentId, phone, age, gen
               </tr>
               <tr>
                 <td colSpan={2} className="p-2 border border-gray-300">
-                  <div className='flex justify-between'>
+                  <div className="flex justify-between">
                     <div>
                       <p><span className="font-semibold">Payment Mode:</span> CASH</p>
                       <p><span className="font-semibold">Received a sum of rupees three hundred</span></p>
                     </div>
-                    <div className='text-right font-semibold'>Subtotal:</div>
+                    <div className="text-right font-semibold">Subtotal:</div>
                   </div>
                 </td>
                 <td className="p-2 border border-gray-300 text-right">₹300.00</td>
@@ -143,13 +140,33 @@ const Invoice = ({ name, doctor, appointmentDate, appointmentId, phone, age, gen
           </table>
         </div>
 
-        <div className="">
+        <div className="mt-4">
           <span className="font-bold">Note:</span>
           <span> Your appointment is valid for 7 days only.</span>
           <br />
           <span>Thank you for visiting 🙂🙂🙂!</span>
         </div>
       </div>
+
+      <style jsx global>{`
+        @media print {
+          body, html, .min-h-screen, .max-h-screen, .h-full, .invoice-print {
+            height: auto !important;
+            max-height: none !important;
+            overflow: visible !important;
+          }
+          .print:h-auto {
+            height: auto !important;
+          }
+          .print:max-h-full {
+            max-height: none !important;
+          }
+          @page {
+            size: auto;
+            margin: 0;
+          }
+        }
+      `}</style>
     </div>
   );
 }

@@ -8,6 +8,6 @@ export const UpdateRoleVerified = z.object({
     gender: z.string().min(1, " Gender must be required"),
     age: z.string().min(1, "Age must be 18+"),
     address: z.string().min(5, "Address must be required"),
-    contactnumber: z.number().min(10, "Phone number must be 10 digits"), // Adjusted to string for precise length validation
+    contactnumber: z.string().min(10, "Phone number must be 10 digits"), // Adjusted to string for precise length validation
 
 })

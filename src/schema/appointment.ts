@@ -21,6 +21,6 @@ export const AppointmentVerified = z.object({
  
   
   Address: z.string()
-    .min(10, { message: "Address must be at least 10 characters long" })
+    .min(3, { message: "Address must be at least 10 characters long" })
     .max(100, { message: "Address must be at most 100 characters long" })
 });

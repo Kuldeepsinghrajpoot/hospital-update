@@ -7,7 +7,7 @@ export interface SystemRoleSchema extends Document {
     email: string;
     password: string;
     role: string;
-    contactnumber: number;
+    contactnumber: string;
     address:string;
     gender: string;
     age: number;
@@ -36,7 +36,7 @@ const ManagerModel: Schema<SystemRoleSchema> = new Schema({
         required: true
     },
     contactnumber: {
-        type: Number,
+        type: String,
         required: true
     },
     address:{

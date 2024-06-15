@@ -1,7 +1,7 @@
 import { Dashboard } from "./dashboard"
 
 export const metadata: Metadata = {
-  title: "dashboard",
+  title: "Dashboard",
   description: "created by student power club",
 };
 

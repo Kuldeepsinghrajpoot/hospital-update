@@ -136,7 +136,7 @@ export default function SystemRoleTableData({ systemRole }: { systemRole: System
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
-  const [data, setData] = React.useState<SystemRoleTable[]>(systemRole)
+  const data:SystemRoleTable[] = systemRole
 
   const { data: session } = useSession()
   const role = session?.user?.role
@@ -189,7 +189,7 @@ export default function SystemRoleTableData({ systemRole }: { systemRole: System
         </div>
         <div className="rounded-md border">
           <Table>
-            <TableHeader>
+            <TableHeader >
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id}>
                   {headerGroup.headers.map((header) => (
@@ -202,7 +202,7 @@ export default function SystemRoleTableData({ systemRole }: { systemRole: System
                 </TableRow>
               ))}
             </TableHeader>
-            <TableBody>
+            <TableBody className=" capitalize">
               {table.getRowModel().rows?.length ? (
                 table.getRowModel().rows.map((row) => (
                   <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>

@@ -68,11 +68,11 @@ const HomePage: React.FC = () => {
                 </div>
             </nav>
             {/* mobile */}
-            <nav className="md:hidden h-16 w-full flex justify-between items-center bg-white text-center drop-shadow-md sticky top-0 z-50">
+            <nav className="md:hidden h-16 w-full flex justify-between items-center dark:bg-white bg-white text-center drop-shadow-md sticky top-0 z-50">
                 <div className="ml-4">
                     <Sheet>
                         <SheetTrigger asChild>
-                            <Menu className='bg-background' />
+                            <Menu className='' />
                         </SheetTrigger>
                         <SheetContent side={'left'}>
                                 {navitems.map((item, index) => (

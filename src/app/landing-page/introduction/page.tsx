@@ -20,7 +20,7 @@ function Introduction() {
                     </div>
                     <div className=' bg-red-900  flex justify-center items-center p-4  bg-transparent'> {/* Example background */}
                         <Image
-                            src='/doctor/doctor.avif'
+                            src='/doctor/doctor.webp'
                             alt='doctor'
                             className='object-cover bg-white   filter  p-8'
                             width={500}

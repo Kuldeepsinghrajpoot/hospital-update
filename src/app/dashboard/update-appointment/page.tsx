@@ -34,7 +34,7 @@ const UpdateAppointment = ({userId}:any) => {
                     const result: AppointmentData = response.data.appointment;
                     setData(result);
                 } catch (error) {
-                    console.error('Error fetching data:', error);
+                    console.error('Error fetching data:');
                 }
             }
         };

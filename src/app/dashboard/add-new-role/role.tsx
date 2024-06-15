@@ -54,7 +54,7 @@ export function AddNewRole() {
                 router.refresh();
             }
         } catch (error: any) {
-            console.error('Error:', error);
+            // console.error('Error:', error);
             const errorMessage = error.response?.data?.message || "Something went wrong!";
             Swal.fire({
                 icon: "error",
