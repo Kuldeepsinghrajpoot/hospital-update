@@ -43,7 +43,7 @@ const DeleteAppointment = ({ id }:any) => {
       };
       
     return <div onClick={removeItem} className=' cursor-pointer '>
-        {/* <i class="ti ti-trash"></i> */}
+     
         <Trash2/>
     </div>
 }
