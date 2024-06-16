@@ -38,7 +38,7 @@ const Invoice = ({ name, doctor, appointmentDate, appointmentId, phone, age, gen
   const { themes } = useTheme();
 
   return (
-    <div className="min-h-screen h-full max-h-screen dark:red-900 bg-white text-gray-500 print:max-h-full print:h-auto px-4">
+    <div className="min-h-screen h-full max-h-screen dark:red-900 bg-white text-gray-500 print:max-h-full print:h-auto p-4">
 
       <div className="invoice-print bg-white text-gray-500 h-full print:h-auto">
         <div className="items-center h-full bg-white print:h-auto">
@@ -61,14 +61,14 @@ const Invoice = ({ name, doctor, appointmentDate, appointmentId, phone, age, gen
           <p className="mb-1">झॉसी, झॉसी, उत्तर प्रदेश, भारत</p>
           <p className="mb-0">+91 7398391052</p>
         </div>
-
+        <hr className='border-1 border-gray-300 my-2' />
         <div className="grid grid-cols-2 md:grid-cols-2 border-0 justify-between items-center">
-          <div className="w-full border-none relative h-max py-5">
+          <div className="w-full border-none relative h-max ">
             <table className="w-full border-collapse">
               <tbody>
                 <tr>
                   <td className="border-0 capitalize font-bold">Patient Name:</td>
-                  <td className="border-0 capitalize">{name}</td>
+                  <td className="border-0 w-fit capitalize">{name}</td>
                 </tr>
                 <tr>
                   <td className="border-0 capitalize font-bold">Address:</td>
@@ -105,37 +105,44 @@ const Invoice = ({ name, doctor, appointmentDate, appointmentId, phone, age, gen
           </div>
         </div>
 
-        <div className="border border-gray-50">
+        <div className=" border-gray-50">
           <table className="w-full border-collapse border border-gray-300">
             <thead className="bg-gray-100">
               <tr>
-                <th className="p-2 border border-gray-300 text-left">Charges Name</th>
-                <th className="p-2 border border-gray-300 text-left">Description</th>
-                <th className="p-2 border border-gray-300 text-right">Amount</th>
+                <th className="p-2 border-b border-gray-300 text-left">Charges Name</th>
+                <th className="p-2 border-b border-gray-300 text-left">Description</th>
+                <th className="p-2 border-b border-gray-300 text-right">Amount</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td className="p-2 border border-gray-300">For Consultation Fee</td>
-                <td className="p-2 border border-gray-300">Dr. {doctor}</td>
-                <td className="p-2 border border-gray-300 text-right">₹300.00</td>
+                <td className="p-2  border-gray-300">For Consultation Fee</td>
+                <td className="p-2  border-gray-300">Dr. {doctor}</td>
+                <td className="p-2  border-gray-300 text-right">₹300.00</td>
               </tr>
               <tr>
-                <td colSpan={2} className="p-2 border border-gray-300">
+                <td colSpan={2} className="p-2 border-t border-gray-300">
                   <div className="flex justify-between">
                     <div>
                       <p><span className="font-semibold">Payment Mode:</span> CASH</p>
                       <p><span className="font-semibold">Received a sum of rupees three hundred</span></p>
                     </div>
-                    <div className="text-right font-semibold">Subtotal:</div>
+                    <div>
+                      <div className="text-right font-semibold">Subtotal</div>
+                      <div className="text-right font-semibold">Total</div>
+                    </div>
+
                   </div>
                 </td>
-                <td className="p-2 border border-gray-300 text-right">₹300.00</td>
+                <td className="p-2 border-t border-gray-300 text-right"><div>
+                  <div>₹300.00</div>
+                  <div>₹300.00</div>
+                </div></td>
               </tr>
-              <tr>
+              {/* <tr>
                 <td colSpan={2} className="p-2 text-right font-semibold border border-gray-300">Total:</td>
                 <td className="p-2 text-right font-semibold border border-gray-300">₹300.00</td>
-              </tr>
+              </tr> */}
             </tbody>
           </table>
         </div>

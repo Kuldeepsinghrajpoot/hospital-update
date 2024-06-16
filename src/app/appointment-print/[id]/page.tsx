@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React from 'react'
 import Invoice from './print';
+import NotFound from '@/app/not-found';
 
 async function getAppointment(id:string) {
     try {
@@ -13,10 +14,13 @@ async function getAppointment(id:string) {
 async function page({params}:any) {
     const {id} = params
     const data = await getAppointment(id)
+    if (!data) {
+        return <div> <NotFound/> </div>
+    }
 
   return (
     <div className='bg-green-900 dark:bg-red-900'>
-      <Invoice name={data.Name} doctor={data.Doctor} appointmentDate={data.createdAt} appointmentId={data.AppointmentId} phone={data.Phone} age={data.Age} gender={data.Gender} address={data.Address} />
+      <Invoice name={data?.Name} doctor={data?.Doctor} appointmentDate={data?.createdAt} appointmentId={data?.AppointmentId} phone={data?.Phone} age={data?.Age} gender={data?.Gender} address={data?.Address} />
     </div>
   )
 }
