@@ -2,12 +2,17 @@ import { getToken } from 'next-auth/jwt'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 export { default } from "next-auth/middleware"
+import { cookies } from 'next/headers'
 
 export async function middleware(request: NextRequest) {
+    const cookieStore = cookies()
+
+    
     const token = await getToken({ req: request })
     const url = request.nextUrl
     const currentTime = Math.floor(Date.now() / 1000)
     console.log('Token:', token?.exp,currentTime)
+    
     // Check if token has expired
     if (token && currentTime > Number(token.exp)) {
         return NextResponse.redirect(new URL('/auth/login', request.url))
@@ -29,3 +34,5 @@ export async function middleware(request: NextRequest) {
 export const config = {
     matcher: ['/login', '/', '/dashboard/:path*'],
 }
+
+ 

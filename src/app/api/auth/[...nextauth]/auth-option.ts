@@ -54,7 +54,7 @@ export const authOptions: NextAuthOptions = {
                 token.role = user.role;
 
                 // Set token expiry to 30 seconds from now
-                const expiresIn:number = 30; // 30 seconds
+                const expiresIn:number = 60*60*1; // 30 seconds
                 token.exp = Math.floor(Date.now() / 1000) + expiresIn;
             }
             return token;
@@ -81,7 +81,14 @@ export const authOptions: NextAuthOptions = {
         }
     },
     secret: process.env.JWT_SECRET,
-    pages: {
-        signIn: '/sign-in'
+    jwt: {
+        maxAge: 60*60*1,
     },
-};
+    session: {
+        strategy: 'jwt',
+        maxAge: 60*60*1,
+    },
+    pages: {
+        signIn: '/sign-in',
+    },
+}

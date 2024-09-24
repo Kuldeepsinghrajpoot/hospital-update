@@ -1,44 +1,16 @@
 "use server"
-import React, { ReactNode } from 'react'
-
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableFooter,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
-import { Printer, PrinterIcon, Trash2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import React  from 'react'
 import { Appointment } from './appointment';
 import DateTimer from './date';
 import axios from 'axios';
-import DeleteAppointment from '../delete-appointment/page';
-import Link from 'next/link';
+
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/auth-option';
-import UpdateAppointment from '../update-appointment/page';
-import { Update } from '../update-appointment/update';
+
 import TableData from '../patients-table/table';
 
 
-interface Patient {
-  _id: string;
-  AppointmentId: string;
-  Doctor: string;
-  Phone: string;
-  Gender: string;
-  Address: string;
-  createdAt: string;
-}
 
-interface ApiResponse {
-  patients: Patient[];
-  totalPages: number;
-}
 
 // Fetch data with type annotation
 async function getData({ id }: { id: string }) {
@@ -69,7 +41,6 @@ async function page() {
   const data = await getData({ id: userId?._id });
   const doctor = await getDoctor({ id: userId?._id });
 
-  const user = Session?.user
   return (
     <div>
       <div className=" py-4 md:py-0 w-full pb-5 sticy top-24 ">

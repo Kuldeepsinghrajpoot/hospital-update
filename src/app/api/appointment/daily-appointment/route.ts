@@ -37,6 +37,7 @@ export async function GET(req: Request, res: Response) {
                     AppointmentId: 1,
                     Address: 1,
                     createdAt: 1,
+                    Age: 1,
                 },
             },
             {
