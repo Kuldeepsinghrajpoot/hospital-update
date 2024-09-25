@@ -91,7 +91,7 @@ export function Profile({ Name, Lastname, Email, teliphone, Address,useAge,Gende
                                         <FormLabel>First Name</FormLabel>
                                         <FormControl>
                                             <div className="flex justify-start items-center gap-2">
-                                                <User />
+                                                <User className=' text-gray-500 dark:text-white'/>
                                                 <Input placeholder="First Name" {...field} />
                                             </div>
                                         </FormControl>
@@ -108,7 +108,7 @@ export function Profile({ Name, Lastname, Email, teliphone, Address,useAge,Gende
                                         <FormLabel>Last Name</FormLabel>
                                         <FormControl>
                                             <div className="flex justify-start items-center gap-2">
-                                                <User />
+                                                <User className=' text-gray-500 dark:text-white'/>
                                                 <Input placeholder="Last Name" {...field} />
                                             </div>
                                         </FormControl>
@@ -125,7 +125,7 @@ export function Profile({ Name, Lastname, Email, teliphone, Address,useAge,Gende
                                         <FormLabel>E-mail</FormLabel>
                                         <FormControl>
                                             <div className="flex justify-start items-center gap-2">
-                                                <Mail />
+                                                <Mail className=' text-gray-500 dark:text-white' />
                                                 <Input placeholder="Email" type="email" {...field} />
                                             </div>
                                         </FormControl>
@@ -142,7 +142,7 @@ export function Profile({ Name, Lastname, Email, teliphone, Address,useAge,Gende
                                         <FormLabel>Gender</FormLabel>
                                         <FormControl>
                                             <div className="flex justify-start items-center gap-1">
-                                                <User2Icon />
+                                                <User2Icon className=' text-gray-500 dark:text-white' />
                                                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                                                     <SelectTrigger id="gender">
                                                         <SelectValue placeholder="Select Gender" />
@@ -168,7 +168,7 @@ export function Profile({ Name, Lastname, Email, teliphone, Address,useAge,Gende
                                     <FormItem>
                                         <FormLabel>Age</FormLabel>
                                         <div className="flex justify-start items-center gap-1">
-                                            <User2Icon />
+                                            <User2Icon className=' text-gray-500 dark:text-white'/>
                                             <FormControl>
                                                 <Input placeholder="Age" type="number" {...field} />
                                             </FormControl>
@@ -186,7 +186,7 @@ export function Profile({ Name, Lastname, Email, teliphone, Address,useAge,Gende
                                         <FormLabel>Phone Number</FormLabel>
                                         <FormControl>
                                             <div className="flex justify-start items-center gap-1">
-                                                <Phone />
+                                                <Phone className=' text-gray-500 dark:text-white' />
                                                 <Input placeholder="Phone Number" type="tel" {...field} />
                                             </div>
                                         </FormControl>
@@ -203,7 +203,7 @@ export function Profile({ Name, Lastname, Email, teliphone, Address,useAge,Gende
                                         <FormLabel>Address</FormLabel>
                                         <FormControl>
                                             <div className="flex justify-start items-center gap-1">
-                                                <BookUser />
+                                                <BookUser className=' text-gray-500 dark:text-white'/>
                                                 <Textarea placeholder="Address" {...field} />
                                             </div>
                                         </FormControl>

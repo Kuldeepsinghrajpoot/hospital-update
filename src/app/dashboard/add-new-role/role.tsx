@@ -202,7 +202,7 @@ export function AddNewRole() {
                         />
                         <div className="col-span-2 text-center">
                         <Button
-                            className=" flex justify-center items-center w-100  text-foreground   hover:border-transparent rounded w-full"
+                            className=" flex justify-center items-center w-100 hover:border-transparent rounded w-full"
                             type="submit" variant={'default'}
                             disabled={loading} // Disable the button when in the loading state
                         >

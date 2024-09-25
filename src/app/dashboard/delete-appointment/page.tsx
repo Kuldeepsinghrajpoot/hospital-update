@@ -42,9 +42,9 @@ const DeleteAppointment = ({ id }:any) => {
         }
       };
       
-    return <div onClick={removeItem} className='cursor-pointer '>
+    return <div onClick={removeItem} className='cursor-pointer  '>
      
-        <Trash2/>
+        < Trash2  className=' text-gray-500 dark:text-white'/>
     </div>
 }
 export default DeleteAppointment;

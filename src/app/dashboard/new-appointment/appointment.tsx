@@ -70,7 +70,7 @@ export function Appointment({ doctor }: { doctor: any }) {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant="default" className='text-foreground'>New Appointment</Button>
+                <Button variant="default" className=''>New Appointment</Button>
             </DialogTrigger>
             <DialogContent className="w-[80vw] md:w-[50vw] lg:w-[40vw] xl:w-[30vw]">
                 <DialogHeader>
@@ -192,8 +192,8 @@ export function Appointment({ doctor }: { doctor: any }) {
                             )}
                         />
                         <Button
-                            className=" flex justify-center items-center w-100  text-foreground   hover:border-transparent rounded w-full"
-                            type="submit" variant={'default'}
+                            className="  flex justify-center items-center w-100    hover:border-transparent rounded w-full"
+                            type="submit" variant={'default'} 
                             disabled={loading} // Disable the button when in the loading state
                         >
                             {loading ? (

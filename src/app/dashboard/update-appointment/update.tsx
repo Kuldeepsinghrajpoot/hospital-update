@@ -90,7 +90,7 @@ export function Update({ name, age, gender, phone, address, DoctorName, doctorLi
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
                 <div  onClick={() => setOpen(true)}>
-                    <SquarePen className="mr-2" />
+                    <SquarePen className="mr-2  text-gray-500 dark:text-white"/>
                 </div>
             </DialogTrigger>
             <DialogContent className="w-[80vw] md:w-[50vw] lg:w-[40vw] xl:w-[30vw]">

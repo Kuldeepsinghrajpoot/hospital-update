@@ -29,6 +29,7 @@ import Link from 'next/link'
 import { useSession } from "next-auth/react"
 import { format } from 'date-fns'
 import { PrinterIcon } from "lucide-react"
+import { Card } from "@/components/ui/card"
 
 // Dynamically import DeleteAppointment
 const DeleteAppointment = dynamic(() => import('../delete-appointment/page'), { ssr: false })
@@ -156,8 +157,8 @@ const columns = (role: string | undefined): ColumnDef<Patient>[] => {
       id: "print",
       header: columnHeaders.print,
       cell: ({ row }) => (
-        <Link href={`/appointment-print/${row.original._id}`} target='_blank'>
-          <PrinterIcon />
+        <Link className="bg-gray-200" href={`/appointment-print/${row.original._id}`} target='_blank'>
+          <PrinterIcon className=' text-gray-500 dark:text-white'/>
         </Link>
       ),
     },
@@ -205,7 +206,7 @@ export default function TableData({ appointmentTable }: { appointmentTable: Pati
   });
 
   return (
-    <div className="rounded-md  capitalize drop-shadow-md px-5 h-full md:w-full w-screen overflow-hidden">
+    <Card className="rounded-md  bg-background  capitalize  px-5 h-full md:w-full w-screen overflow-hidden">
       <div className="md:w-full">
         <div className="flex items-center py-4">
           <Input
@@ -236,7 +237,7 @@ export default function TableData({ appointmentTable }: { appointmentTable: Pati
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
-        <div className="rounded-md border">
+        <div className="rounded ">
           <Table>
             <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (
@@ -297,6 +298,6 @@ export default function TableData({ appointmentTable }: { appointmentTable: Pati
           </div>
         </div>
       </div>
-    </div>
+    </Card>
   )
 }

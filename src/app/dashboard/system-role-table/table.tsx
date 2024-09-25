@@ -27,9 +27,9 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import DeleteAppointment from '../delete-appointment/page'
 import dynamic from 'next/dynamic'
 import { useSession } from "next-auth/react"
+import { Card } from "@/components/ui/card"
 
 
-const UpdateAppointment = dynamic(() => import('../update-appointment/page'), { ssr: false })
 
 // Define consistent column headers
 const columnHeaders = {
@@ -156,7 +156,7 @@ export default function SystemRoleTableData({ systemRole }: { systemRole: System
   })
 
   return (
-    <div className="bg-background rounded-md drop-shadow-md px-5 h-full md:w-full w-screen overflow-hidden">
+    <Card className="bg-background  px-5 h-full md:w-full w-screen overflow-hidden">
       <div className="md:w-full">
         <div className="flex items-center py-4">
           <Input
@@ -187,7 +187,7 @@ export default function SystemRoleTableData({ systemRole }: { systemRole: System
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
-        <div className="rounded-md border">
+        <div className="rounded">
           <Table>
             <TableHeader >
               {table.getHeaderGroups().map((headerGroup) => (
@@ -248,6 +248,6 @@ export default function SystemRoleTableData({ systemRole }: { systemRole: System
           </div>
         </div>
       </div>
-    </div>
+    </Card>
   )
 }
