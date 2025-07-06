@@ -61,7 +61,6 @@ function Footer() {
                     <p>Email: <a href="mailto:udaydivyaclinic@gmail.com">udaydivyaclinic@gmail.com</a></p>
                 </div>
             </div>
-
             {/* Footer Bottom */}
             <div className="container flex justify-between  mx-auto mt-8 px-4  items-center">
                 <div>
