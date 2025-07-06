@@ -1,7 +1,10 @@
+'use client'
 import Image from 'next/image';
 import React from 'react';
-
+import { Input, QRCode, Space } from 'antd';
 function Footer() {
+    const [text, setText] = React.useState('https://hospital-bay-rho.vercel.app/');
+
     return (
         <footer className="bg-gray-800 border-gray-500 text-gray-200 py-24">
             <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
@@ -36,7 +39,7 @@ function Footer() {
                 {/* Opening Hours */}
                 <div className='container flex justify-center content-center items-center  mx-auto mt-8 px-4 border-r border-gray-500'>
                     <div className='flex flex-col justify-center items-center'>
-                        <Image src={'/favicon.png'} width={100} height={100} alt='image'/>
+                        <Image src={'/favicon.png'} width={100} height={100} alt='image' />
                         <p className="text-center px-10 py-5">There’s nothing in this story to make us think he was dreaming about riches.</p>
                     </div>
                 </div>
@@ -60,10 +63,15 @@ function Footer() {
             </div>
 
             {/* Footer Bottom */}
-            <div className="container mx-auto mt-8 px-4  items-center">
-                <p>© {new Date().getFullYear()} Student Power Club.</p>
-                <p>Mob - 9144462693</p>
-                
+            <div className="container flex justify-between  mx-auto mt-8 px-4  items-center">
+                <div>
+                    <p>© Since 2024 - {new Date().getFullYear()} Student Power Club.</p>
+                    <p>Mob - 9144462693</p>
+                </div>
+                <Space direction="horizontal" align="center" className='bg-white'>
+                    <QRCode value={text || '-'} />
+
+                </Space>
                 {/* Your Logo Component Goes Here */}
             </div>
         </footer>

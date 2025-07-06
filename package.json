@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ant-design/nextjs-registry": "^1.0.2",
     "@hookform/resolvers": "^3.6.0",
     "@radix-ui/react-checkbox": "^1.0.4",
     "@radix-ui/react-dialog": "^1.0.5",
@@ -22,6 +23,7 @@
     "@radix-ui/react-tabs": "^1.0.4",
     "@tanstack/react-table": "^8.17.3",
     "@types/bcryptjs": "^2.4.6",
+    "antd": "^5.26.3",
     "axios": "^1.7.7",
     "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.7.0",
