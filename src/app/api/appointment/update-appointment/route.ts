@@ -1,10 +1,8 @@
 import dbConnect from "@/lib/db"
-import Appointment, { AppointmentSchema } from "@/models/appointment";
-import { AppointmentVerified } from "@/schema/appointment";
-import { stat } from "fs"
-import { Schema, Types } from "mongoose";
+import Appointment from "@/models/appointment";
+import { Schema} from "mongoose";
 
-export async function GET(req: Request, res: Response) {
+export async function GET(req: Request) {
     const { searchParams } = new URL(req.url)
     const id = searchParams.get('id'); 
 // console.log('server-id',id) //todo : remove this line after testing
@@ -23,7 +21,7 @@ export async function GET(req: Request, res: Response) {
     }
 }
 
-export async function PUT(req: Request, res: Response) {
+export async function PUT(req: Request) {
     try {
         const { searchParams } = new URL(req.url);
         const id = searchParams.get('id');

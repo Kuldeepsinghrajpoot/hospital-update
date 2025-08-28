@@ -1,10 +1,12 @@
 'use client';
 
 import Img from 'next/image';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { setTimeout } from 'timers';
 import { useTheme } from 'next-themes';
+import { QRCode, Space } from 'antd';
+import { usePathname  } from 'next/navigation'
+import { Button } from '@/components/ui/button';
 
 interface InvoiceProps {
   name: string;
@@ -15,16 +17,17 @@ interface InvoiceProps {
   age: string;
   gender: string;
   address: string;
+  url:string
 }
 
-const Invoice = ({ name, doctor, appointmentDate, appointmentId, phone, age, gender, address }: InvoiceProps) => {
+const Invoice = ({ name, doctor, appointmentDate, appointmentId, phone, age, gender, address,url }: InvoiceProps) => {
   const router = useRouter();
-
+  const pathname = usePathname()
   useEffect(() => {
     if (!name || !doctor || !appointmentDate || !phone || !age || !gender || !address) {
       router.refresh();
     }
-    setTimeout(() => { window.print() }, 1000);
+    // setTimeout(() => { window.print() }, 1000);
   }, [router, name, doctor, appointmentDate, phone, age, gender, address]);
 
   const formatDate = (dateStr: string) => {
@@ -36,6 +39,8 @@ const Invoice = ({ name, doctor, appointmentDate, appointmentId, phone, age, gen
   const issueDate = (dateStr: string) => new Date(dateStr).toDateString();
   const formatTime = (dateStr: string) => new Date(dateStr).toLocaleTimeString();
   const { themes } = useTheme();
+  const [text, setText] = React.useState(`${process.env.NEXT_PUBLIC_URI}/${pathname}`);
+  console.log(text)
 
   return (
     <div className="min-h-screen h-full max-h-screen dark:red-900 bg-white text-gray-500 print:max-h-full print:h-auto p-4">
@@ -54,12 +59,28 @@ const Invoice = ({ name, doctor, appointmentDate, appointmentId, phone, age, gen
                   <span className="text-gray-500">Till Valid</span>
                   <span className="font-bold">: {formatDate(appointmentDate)}</span>
                 </div>
+
               </div>
             </div>
           </div>
-          <p className="mb-1">एफ-9, 10, फर्स्ट फ्लोर, वीरांगना जे.डी.ए. कॉम्पलैक्स, मेडिकल कॉलेज के पास,</p>
-          <p className="mb-1">झॉसी, झॉसी, उत्तर प्रदेश, भारत</p>
-          <p className="mb-0">+91 7398391052</p>
+          <div className='flex justify-between'>
+
+            <div>
+
+              <p className="mb-1">एफ-9, 10, फर्स्ट फ्लोर, वीरांगना जे.डी.ए. कॉम्पलैक्स, मेडिकल कॉलेज के पास,</p>
+              <p className="mb-1">झॉसी, झॉसी, उत्तर प्रदेश, भारत</p>
+              <p className="mb-0">+91 7398391052</p>
+            </div>
+            <div>
+              <span className='h-24 w-24  '>
+
+                <Space direction="horizontal" align="center" className=' border-none'>
+                  <QRCode value={text || '-'} size={90} style={{"border":"none"}} />
+
+                </Space>
+              </span>
+            </div>
+          </div>
         </div>
         <hr className='border-1 border-gray-300 my-2' />
         <div className="grid grid-cols-2 md:grid-cols-2 border-0 justify-between items-center">
@@ -149,12 +170,16 @@ const Invoice = ({ name, doctor, appointmentDate, appointmentId, phone, age, gen
 
         <div className="mt-4">
           <span className="font-bold">Note:</span>
-          <span> Your appointment is valid for 7 days only.</span>
+          <span> Your appointment will be valid for 7 days only.</span>
           <br />
-          <span>Thank you for visiting 🙂🙂🙂!</span>
         </div>
-      </div>
 
+      </div>
+      <div className="flex justify-center mt-4 print:hidden">
+        <Button onClick={() => window.print()}>
+          <span>Print</span>
+        </Button>
+      </div>
       <style jsx global>{`
         @media print {
           body, html, .min-h-screen, .max-h-screen, .h-full, .invoice-print {

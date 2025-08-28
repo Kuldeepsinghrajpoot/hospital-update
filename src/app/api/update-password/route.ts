@@ -1,7 +1,7 @@
 import dbConnect from "@/lib/db";
 import SystemRole from "@/models/system-role";
 import bcrypt from 'bcryptjs'
-export async function PUT(req: Request, res: Response) {
+export async function PUT(req: Request) {
     try {
         dbConnect();
         const { password, newPassword, id } = await req.json();

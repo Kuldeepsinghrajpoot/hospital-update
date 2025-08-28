@@ -3,28 +3,33 @@ import Appointment from "@/models/appointment";
 import SystemRole from "@/models/system-role";
 import { NextResponse } from "next/server";
 
-
-
-export async function GET(req: Request, res: Response) {
-    const {searchParams} = new URL(req.url)
+export async function GET(req: Request) {
+    const { searchParams } = new URL(req.url);
     const id = searchParams.get('id');
+
     if (!id) {
-        return Response.json({ error: 'Id is required', status: 400 })
+        return NextResponse.json({ error: 'Id is required', status: 400 });
     }
 
-    dbConnect();
-    const Admin = await SystemRole.countDocuments({role: 'Admin'});
-    // const managers = await Manager.countDocuments({role: 'manager'});
-    // todo: uncomment the above line after creating the manager model
+    await dbConnect();
 
-    const managers = await SystemRole.countDocuments({role: 'Manager'});
-    const appointments = await Appointment.countDocuments({});
-    const doctors = await SystemRole.countDocuments({role: 'Doctor'});
-    const user = await SystemRole.countDocuments({role: 'User'});
+    const [Admin, managers, appointments, doctors, user] = await Promise.all([
+        SystemRole.countDocuments({ role: 'Admin' }),
+        SystemRole.countDocuments({ role: 'Manager' }),
+        Appointment.countDocuments({}),
+        SystemRole.countDocuments({ role: 'Doctor' }),
+        SystemRole.countDocuments({ role: 'User' }),
+    ]);
 
-    console.log("counting all records")
- 
-    return NextResponse.json({Admin, managers, appointments, doctors, user, status: 200 , message: "All records fetched successfully"});
+    console.log("counting all records");
 
-  
+    return NextResponse.json({
+        Admin,
+        managers,
+        appointments,
+        doctors,
+        user,
+        status: 200,
+        message: "All records fetched successfully",
+    });
 }

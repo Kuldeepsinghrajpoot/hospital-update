@@ -2,7 +2,7 @@ import dbConnect from "@/lib/db";
 import SystemRole from "@/models/system-role";
 import { NextResponse } from 'next/server';
 
-export async function GET(req: Request, res: Response) {
+export async function GET(req: Request) {
     const {searchParams} = new URL(req.url)
     const id = searchParams.get('id');
     if (!id) {

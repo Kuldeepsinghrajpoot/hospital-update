@@ -39,11 +39,10 @@ export function Chart({ patient }: { patient: PatientData[] }) {
     const [activeChart, setActiveChart] =
         React.useState<keyof typeof chartConfig>("patients")
 
-    const total = React.useMemo(() => ({
-        patients: patient.reduce((acc, curr) => acc + curr.patients, 0),
-    }),
-        []
-    )
+  const total = React.useMemo(() => ({
+    patients: patient.reduce((acc, curr) => acc + curr.patients, 0),
+}), [patient]);
+
 
     return (
         <Card>

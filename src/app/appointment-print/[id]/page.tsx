@@ -12,7 +12,7 @@ async function getAppointment(id:string) {
     }
 }
 async function page({params}:any) {
-    const {id} = params
+    const {id} = await params
     const data = await getAppointment(id)
     if (!data) {
         return <div> <NotFound/> </div>
@@ -20,7 +20,7 @@ async function page({params}:any) {
 
   return (
     <div className='bg-green-900 dark:bg-red-900'>
-      <Invoice name={data?.Name} doctor={data?.Doctor} appointmentDate={data?.createdAt} appointmentId={data?.AppointmentId} phone={data?.Phone} age={data?.Age} gender={data?.Gender} address={data?.Address} />
+      <Invoice name={data?.Name} url={id} doctor={data?.Doctor} appointmentDate={data?.createdAt} appointmentId={data?.AppointmentId} phone={data?.Phone} age={data?.Age} gender={data?.Gender} address={data?.Address} />
     </div>
   )
 }

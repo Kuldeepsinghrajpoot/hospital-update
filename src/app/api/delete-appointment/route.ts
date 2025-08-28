@@ -1,7 +1,7 @@
 import dbConnect from "@/lib/db";
 import Appointment from "@/models/appointment";
 
-export async function DELETE(req: Request, res: Response) {
+export async function DELETE(req: Request) {
     dbConnect();
     const {searchParams} = new URL(req.url)
     const id = searchParams.get('id')
