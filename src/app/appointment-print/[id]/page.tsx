@@ -3,15 +3,15 @@ import React from 'react'
 import Invoice from './print';
 import NotFound from '@/app/not-found';
 
-async function getAppointment(id:string) {
+async function getAppointment(id:any) {
     try {
         const response = await axios.get(`${process.env.URI}/api/appointment/get-appointment/${id}`);
-    return response.data.appointment;
+        return response.data.appointment;
     } catch (error) {
        console.log(error) 
     }
 }
-async function page({params}:any) {
+async function page({params}:string | any) {
     const {id} = await params
     const data = await getAppointment(id)
     if (!data) {
