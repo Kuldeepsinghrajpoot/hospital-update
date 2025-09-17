@@ -26,48 +26,39 @@ export const SymptomCheckerDialog: FC<SymptomCheckerDialogProps> = ({
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [open, setOpen] = useState<boolean>(false)
 
-  const handleCheckSymptoms = async () => {
+  async function callGemini(symptoms: string) {
+  const response = await fetch("/api/gemini", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ prompt: symptoms }),
+  });
+
+  const data = await response.json();
+
+  if (data.candidates && data.candidates[0].content.parts[0].text) {
+    setResult(data.candidates[0].content.parts[0].text.replace(/\n/g, "<br />"));
+  } else {
+    setResult("Sorry, I couldn't process that. Please try again.");
+    console.log("AI Response:", data);
+  }
+}
+
+
+  // ✅ Hooked up button handler
+  async function handleCheckSymptoms() {
     if (!symptoms.trim()) {
-      setResult("Please describe your symptoms.")
+      setResult("⚠️ Please enter your symptoms first.")
       return
     }
+
     setIsLoading(true)
     setResult("")
 
-    const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`
-
-    const systemPrompt = `You are a helpful AI medical assistant for Uday Clinic. Your goal is to provide a preliminary analysis of a user's symptoms. You MUST follow these rules strictly:
-1. Analyze the user's symptoms and suggest a potential course of action:
-   - Go to the hospital immediately.
-   - Book a non-urgent appointment.
-   - Rest and manage at home.
-2. Provide a brief, simple explanation for your suggestion.
-3. ALWAYS, without exception, end your response with the following disclaimer, formatted exactly like this:
-"---
-**Disclaimer:** This is an AI-powered analysis and not a substitute for professional medical advice. Please consult a doctor for an accurate diagnosis and treatment plan. This tool is for informational purposes only."
-4. Do not provide a diagnosis. Do not suggest specific medications.
-5. Keep your entire response concise and easy to understand for a non-medical person.`
-
-    const payload = {
-      contents: [{ parts: [{ text: `User symptoms: ${symptoms}` }] }],
-      systemInstruction: { parts: [{ text: systemPrompt }] },
-    }
-
     try {
-      const response = await fetch(apiUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      })
-      const data = await response.json()
-      if (data.candidates && data.candidates[0].content.parts[0].text) {
-        setResult(data.candidates[0].content.parts[0].text.replace(/\n/g, "<br />"))
-      } else {
-        setResult("Sorry, I couldn't process that. Please try again.")
-      }
+      await callGemini(symptoms)
     } catch (error) {
-      setResult("An error occurred. Please check your connection and try again.")
+      setResult("An error occurred. Please try again later.")
+      console.error(error)
     } finally {
       setIsLoading(false)
     }
