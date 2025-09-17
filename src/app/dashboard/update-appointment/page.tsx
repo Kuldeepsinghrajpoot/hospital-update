@@ -17,7 +17,25 @@ interface DoctorData {
   lastname: string;
 }
 
-const UpdateAppointment = ({ userId }: { userId: string }) => {
+interface PageProps {
+  searchParams: Promise<{
+    id?: string;
+  }>;
+}
+
+const UpdateAppointment = ({ searchParams }: PageProps) => {
+  const [userId, setUserId] = useState<string | undefined>(undefined);
+  const [paramsLoaded, setParamsLoaded] = useState(false);
+  
+  // Handle searchParams Promise
+  useEffect(() => {
+    const getSearchParams = async () => {
+      const params = await searchParams;
+      setUserId(params.id);
+      setParamsLoaded(true);
+    };
+    getSearchParams();
+  }, [searchParams]);
 
   const [data, setData] = useState<AppointmentData | null>(null);
   const [doctor, setDoctor] = useState<DoctorData | null>(null);
@@ -44,6 +62,14 @@ const UpdateAppointment = ({ userId }: { userId: string }) => {
 
     fetchData();
   }, [userId]);
+
+  if (!paramsLoaded) {
+    return <p>Loading...</p>;
+  }
+
+  if (!userId) {
+    return <p>Missing appointment ID parameter.</p>;
+  }
 
   if (loading) {
     return <p>Loading...</p>;

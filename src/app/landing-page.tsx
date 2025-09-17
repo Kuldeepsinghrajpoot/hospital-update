@@ -89,7 +89,7 @@ const ServiceCard: FC<ServiceCardProps> = ({ icon, title, text }) => {
       <Card className="text-center group hover:shadow-sm hover:-translate-y-2 transition-all duration-300 h-full bg-card/60 backdrop-blur-lg  border  ">
         <CardHeader>
           <div className="mx-auto bg-gradient-to-br from-green-100 to-emerald-200 rounded-full p-4 mb-4 w-max transition-all duration-300 group-hover:scale-110">
-            <img src={icon} alt={`${title} icon`} className="w-16 h-16" />
+            <Image src={icon} alt={`${title} icon`} width={64} height={64} className="w-16 h-16" />
           </div>
           <CardTitle className="text-xl font-bold">{title}</CardTitle>
         </CardHeader>
@@ -107,7 +107,7 @@ const TeamMember: FC<TeamMemberProps> = ({ imgSrc, name, role, description }) =>
       <Card className=" text-center group md:hover:shadow-2xl md:hover:-translate-y-2 transition-all duration-300 h-full bg-secondary overflow-hidden">
         <div className="bg-gradient-to-br from-green-50 to-emerald-100 h-24 dark:from-green-900/50 dark:to-emerald-800/50"></div>
         <CardContent className="pt-6 relative -mt-16">
-          <img src={imgSrc} alt={name} className="w-28 h-28 sm:w-32 sm:h-32 rounded-full mx-auto mb-4 border-4 border-background object-cover shadow-lg transition-transform duration-300 group-hover:scale-110" />
+          <Image src={imgSrc} alt={name} width={128} height={128} className="w-28 h-28 sm:w-32 sm:h-32 rounded-full mx-auto mb-4 border-4 border-background object-cover shadow-lg transition-transform duration-300 group-hover:scale-110" />
           <h3 className="text-xl font-bold text-foreground">{name}</h3>
           <p className="text-primary font-semibold mb-2">{role}</p>
           <p className="text-muted-foreground text-sm">{description}</p>
@@ -125,10 +125,10 @@ const TestimonialCard: FC<TestimonialCardProps> = ({ quote, name, location, avat
           <svg width="120" height="120" viewBox="0 0 24 24" fill="currentColor"><path d="M9.983 3v7.391c0 2.908-2.355 5.263-5.263 5.263s-5.263-2.355-5.263-5.263c0-2.908 2.355-5.263 5.263-5.263h3.333v-7.391h3.333zm14.017 0v7.391c0 2.908-2.355 5.263-5.263 5.263s-5.263-2.355-5.263-5.263c0-2.908 2.355-5.263 5.263-5.263h3.333v-7.391h3.333z" /></svg>
         </div>
         <CardContent className="pt-10 z-10">
-          <p className="text-muted-foreground mb-6 italic">"{quote}"</p>
+<p className="text-muted-foreground mb-6 italic">&quot;{quote}&quot;</p>
         </CardContent>
         <CardHeader className="flex-row items-center gap-4 pt-0 z-10 bg-secondary/30 mt-auto p-4">
-          <img src={avatarSrc} alt="Patient avatar" className="w-12 h-12 rounded-full" />
+          <Image src={avatarSrc} alt="Patient avatar" width={48} height={48} className="w-12 h-12 rounded-full" />
           <div>
             <h4 className="font-bold text-foreground">{name}</h4>
             <p className="text-sm text-muted-foreground">{location}</p>
@@ -144,7 +144,7 @@ const WhyChooseUsCard: FC<WhyChooseUsCardProps> = ({ icon, title, text }) => {
     <AnimatedSection>
       <div className="flex items-start space-x-4">
         <div className="flex-shrink-0 bg-gradient-to-br from-green-100 to-emerald-200 rounded-lg p-3">
-          <img src={icon} alt={`${title} icon`} className="w-10 h-10" />
+          <Image src={icon} alt={`${title} icon`} width={40} height={40} className="w-10 h-10" />
         </div>
         <div>
           <h3 className="text-lg font-bold text-foreground">{title}</h3>
@@ -284,9 +284,11 @@ const [active, setActive] = useState<string | null>("#home");
                 <AnimatedSection>
                   <div className="relative mt-8 md:mt-0 aspect-square md:aspect-[4/5] max-h-[550px] rounded-2xl shadow-sm overflow-hidden md:-rotate-2 md:hover:rotate-0 transition-transform duration-300">
                     {/* Light mode image */}
-                    <img
+                    <Image
                       src="/doctor-img-light.png"
                       alt="Dr. Uday at Uday Clinic"
+                      width={600}
+                      height={500}
                       className="block dark:hidden w-full h-full object-cover object-top"
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
@@ -295,9 +297,11 @@ const [active, setActive] = useState<string | null>("#home");
                       }}
                     />
                     {/* Dark mode image */}
-                    <img
+                    <Image
                       src="/doctor-img.png"
                       alt="Dr. Uday at Uday Clinic"
+                      width={600}
+                      height={500}
                       className="hidden dark:block w-full h-full object-cover object-top"
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
@@ -363,14 +367,14 @@ const [active, setActive] = useState<string | null>("#home");
               <div className="flex justify-center items-center w-full">
                 <div className="md:w-6/12 space-y-4 md:space-y-0 md:flex justify-center items-center gap-10 place-items-center">
                   <TeamMember
-                    imgSrc="https://placehold.co/200x200/e2f5ea/16a34a?text=Dr.+U"
-                    name="Dr. Uday Rajpoot"
+                    imgSrc="https://placehold.co/600x500/E6FFFA/10B981?text=Dr.+U"
+                    name="Dr. Uday Singh Rajpoot"
                     role="Physician"
                     description="Dr. Uday brings over 35+ years of experience in internal medicine, offering compassionate care and accurate diagnostics for patients."
                   />
                   <TeamMember
-                    imgSrc="https://placehold.co/200x200/e2f5ea/16a34a?text=Dr.+N"
-                    name="Dr. Neeraj Singh Rajpoot"
+                    imgSrc="https://placehold.co/600x500/E6FFFA/10B981?text=Dr.+N"
+                    name="Dr. Neeraj  Rajpoot"
                     role="Surgeon, MD"
                     description="With 10+ years of experience, Dr. Neeraj specializes in advanced surgical procedures and delivers patient-centered treatment."
                   />

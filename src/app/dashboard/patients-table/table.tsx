@@ -28,13 +28,11 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useSession } from "next-auth/react"
 import { format } from 'date-fns'
-import { PrinterIcon } from "lucide-react"
+import { PrinterIcon, Edit } from "lucide-react"
 import { Card } from "@/components/ui/card"
 
 // Dynamically import DeleteAppointment
 const DeleteAppointment = dynamic(() => import('../delete-appointment/page'), { ssr: false })
-
-const UpdateAppointment = dynamic(() => import('../update-appointment/page'), { ssr: false })
 
 // Define consistent column headers
 const columnHeaders = {
@@ -150,7 +148,9 @@ const columns = (role: string | undefined): ColumnDef<Patient>[] => {
       id: "update",
       header: columnHeaders.update,
       cell: ({ row }) => (
-        <UpdateAppointment userId={row.original._id} />
+        <Link className="bg-gray-200 p-1 rounded" href={`/dashboard/update-appointment?id=${row.original._id}`}>
+          <Edit className="text-gray-500 dark:text-white" />
+        </Link>
       ),
     },
     {

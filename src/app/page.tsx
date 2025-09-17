@@ -10,14 +10,19 @@ async function getDoctor({ id }: { id: string }) {
     return response.data
   } catch (error) {
     console.error(error)
+    return null; // Return null instead of undefined
   }
 }
 
- export default async function page() {
- 
-  const doctor = await getDoctor({ id: "1" });  return (
+export default async function page() {
+  const doctor = await getDoctor({ id: "1" });
+  
+  // Handle the case where doctor is null or undefined
+  const doctorData = doctor?.doctor || null;
+  
+  return (
     <div className="">
-      <LandingPage doctor={doctor.doctor} />
+      <LandingPage doctor={doctorData} />
     </div>
   )
-} 
+}
