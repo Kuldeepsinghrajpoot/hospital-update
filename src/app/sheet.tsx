@@ -8,6 +8,7 @@ import {
 import { Menu, Home, Info, Briefcase, Mail, CalendarPlus } from "lucide-react"
 import Link from "next/link"
 import React, { FC, MouseEvent, ReactNode } from "react"
+import { Login } from "./auth/login"
 
 interface NavLinkProps {
     href: string;
@@ -56,6 +57,7 @@ export function SheetDemo() {
             </SheetTrigger>
             <SheetContent>
                 <nav className="flex flex-col items-start space-y-4 mt-16 p-4">
+                    <Login />
                     <NavLink href="#home" onClick={handleMobileNavClick} icon={<Home />}>
                         Home
                     </NavLink>

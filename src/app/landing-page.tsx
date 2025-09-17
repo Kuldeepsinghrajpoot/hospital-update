@@ -254,10 +254,9 @@ const [active, setActive] = useState<string | null>("#home");
               {/* <Link href="#appointment" onClick={handleSmoothScroll}>Book Appointment</Link> */}
             </div>
             <div className='md:hidden flex items-center'>
-              <Login /> 
               <SwitchDemo />
 
-              {/* <SheetDemo /> */}
+              <SheetDemo />
             </div>
           </div>
         </header>
