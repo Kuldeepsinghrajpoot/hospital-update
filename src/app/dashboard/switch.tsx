@@ -1,22 +1,41 @@
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
-import { useTheme } from "next-themes";
+"use client"
+
+import { useTheme } from "next-themes"
+import { Button } from "@/components/ui/button"
+import { Sun, Moon } from "lucide-react"
+import { useEffect, useState } from "react"
 
 export function SwitchDemo() {
-    const { theme, setTheme } = useTheme();
+  const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
 
-    const handleThemeChange = () => {
+  // ✅ Fix hydration issues (next-themes requirement)
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
-        setTheme(theme === 'light' ? 'dark' : 'light');
-    };
+  if (!mounted) return null
 
-    return (
-        <div className={`flex justify-between items-center  ${theme==='light'?"dark:text-black":"  dark:text-white"}`}>
-            {/* <Login /> */}
-            <div className="flex items-center space-x-2">
-                <Switch id="theme-switch" onCheckedChange={() => handleThemeChange()} onChange={handleThemeChange} />
-                <Label className={`${theme==='light'?"text-black":" text-green-800"}`} htmlFor="theme-switch">{theme === 'light' ? 'Dark' : 'Light'}</Label>
-            </div>
-        </div>
-    );
+  return (
+    <Button
+      variant="ghost"
+      size="icon"
+      onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+      className="relative"
+    >
+      {/* Sun icon */}
+      <Sun
+        className={`h-[1.8rem] w-[1.8rem] transition-transform duration-500
+        ${theme === "light" ? "rotate-0 scale-100 opacity-100" : "-rotate-90 scale-0 opacity-0"}`}
+      />
+
+      {/* Moon icon */}
+      <Moon
+        className={`absolute h-[1.8rem] w-[1.8rem] transition-transform duration-500
+        ${theme === "dark" ? "rotate-0 scale-100 opacity-100" : "rotate-90 scale-0 opacity-0"}`}
+      />
+
+      <span className="sr-only">Toggle theme</span>
+    </Button>
+  )
 }

@@ -80,11 +80,11 @@ export function Login() {
         <div>
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                 <DialogTrigger asChild>
-                    <Button variant="default">Login</Button>
+                    <Button variant="default">Login Admin Only</Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
-                        <DialogTitle>Login</DialogTitle>
+                        <DialogTitle className=" flex justify-center items-center py-5">Login Admin Only</DialogTitle>
                         <DialogDescription>
                             Login to your account
                         </DialogDescription>

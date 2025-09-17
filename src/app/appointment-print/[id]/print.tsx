@@ -3,7 +3,6 @@
 import Img from 'next/image';
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useTheme } from 'next-themes';
 import { QRCode, Space } from 'antd';
 import { usePathname  } from 'next/navigation'
 import { Button } from '@/components/ui/button';
@@ -38,7 +37,6 @@ const Invoice = ({ name, doctor, appointmentDate, appointmentId, phone, age, gen
 
   const issueDate = (dateStr: string) => new Date(dateStr).toDateString();
   const formatTime = (dateStr: string) => new Date(dateStr).toLocaleTimeString();
-  const { themes } = useTheme();
   const [text, setText] = React.useState(`${process.env.NEXT_PUBLIC_URI}/${pathname}`);
   console.log(text)
 

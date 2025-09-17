@@ -2,83 +2,70 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Update } from './update';
-import { useSearchParams } from 'next/navigation';
 
-// Define the type for your data
 interface AppointmentData {
-    Name?: string;
-    Age?: string;
-    Gender?: string;
-    Doctor?: string;
-    Phone?: string;
-    Address?: string;
-    // appointmentDoctorName?: string[]; // Uncomment if needed
+  Name?: string;
+  Age?: string;
+  Gender?: string;
+  Doctor?: string;
+  Phone?: string;
+  Address?: string;
 }
 
 interface DoctorData {
-    name: string;
-    lastname: string;
+  name: string;
+  lastname: string;
 }
-const UpdateAppointment = ({userId}:any) => {
 
+const UpdateAppointment = ({ userId }: { userId: string }) => {
 
-    const [data, setData] = useState<AppointmentData | null>(null);
-    const [doctor, setDoctor] = useState<DoctorData | null>(null);
+  const [data, setData] = useState<AppointmentData | null>(null);
+  const [doctor, setDoctor] = useState<DoctorData | null>(null);
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    if (!userId) return;
 
-    useEffect(() => {
-        const fetchData = async () => {
-            if (userId) {
-                try {
-                    const response = await axios.get(`/api/appointment/update-appointment?id=${userId}`);
-                    const result: AppointmentData = response.data.appointment;
-                    setData(result);
-                } catch (error) {
-                    console.error('Error fetching data:');
-                }
-            }
-        };
+    const fetchData = async () => {
+      try {
+        const [appointmentRes, doctorRes] = await Promise.all([
+          axios.get(`/api/appointment/update-appointment?id=${userId}`),
+          axios.get(`/api/get-role-based-detiails/get-doctor-to-appointment?id=${userId}`)
+        ]);
 
-        fetchData();
-    }, [userId]);
+        setData(appointmentRes.data.appointment || null);
+        setDoctor(doctorRes.data.doctor || null);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    // finding the doctors
-    useEffect(() => {
-        const fetchData = async () => {
-            if (userId) {
-                try {
-                    const response = await axios.get(`/api/get-role-based-detiails/get-doctor-to-appointment?id=${userId}`);
-                    const result: DoctorData = response.data.doctor;
-                    setDoctor(result);
-                } catch (error) {
-                    console.error('Error fetching data:', error);
-                }
-            }
-        };
+    fetchData();
+  }, [userId]);
 
-        fetchData();
-    }, [userId]);
+  if (loading) {
+    return <p>Loading...</p>;
+  }
 
-    // Only render the Update component if data is available
-    if (!data) {
-        return <p>{data}</p>; // Or a loading spinner if preferred
-    }
+  if (!data) {
+    return <p>No appointment data found.</p>;
+  }
 
-    return (
-        <>
-            <Update
-                name={data?.Name||""}
-                age={data?.Age||""}
-                gender={data?.Gender||""}
-                doctor={data?.Doctor||""}
-                phone={data?.Phone||""}
-                address={data?.Address||""}
-                DoctorName={data?.Doctor||""} // Uncomment if needed
-                doctorList={doctor||""}
-                id={userId}
-            />
-        </>
-    );
+  return (
+    <Update
+      name={data.Name || ""}
+      age={data.Age || ""}
+      gender={data.Gender || ""}
+      doctor={data.Doctor || ""}
+      phone={data.Phone || ""}
+      address={data.Address || ""}
+      DoctorName={data.Doctor || ""}
+      doctorList={doctor}  // keep consistent with type
+      id={userId}
+    />
+  );
 };
 
 export default UpdateAppointment;

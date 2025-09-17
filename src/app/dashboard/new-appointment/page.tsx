@@ -8,6 +8,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/auth-option';
 
 import TableData from '../patients-table/table';
+import ClientBookingAppointment from '@/app/client-booking-appointment';
 
 
 
@@ -47,7 +48,8 @@ async function page() {
         <div className='h-14 items-center text-center w-full  md:flex md:justify-between  grid md:grid-cols-2 '>
           <div className='flex md:px-5  justify-center    text-center items-center gap-2'> <span className='font-bold'>Appointment&#39;s</span>
             [<span className='gap-5'><DateTimer /></span>]</div>
-          <div className='flex md:px-5   justify-center font-bold   text-center items-center'><Appointment doctor={doctor.doctor} /></div>
+          <div className='flex md:px-5   justify-center font-bold   text-center items-center'><Appointment doctor={doctor.doctor} />
+          </div>
         </div>
       <TableData appointmentTable={data.dailyAppointment} />
       </div>
