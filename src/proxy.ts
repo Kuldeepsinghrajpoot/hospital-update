@@ -4,7 +4,7 @@ import type { NextRequest } from 'next/server'
 export { default } from "next-auth/middleware"
 import { cookies } from 'next/headers'
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
     const cookieStore = cookies()
 
     

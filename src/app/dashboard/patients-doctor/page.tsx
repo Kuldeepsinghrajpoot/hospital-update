@@ -25,7 +25,7 @@ import Link from 'next/link';
 import DeleteAppointment from '../delete-appointment/page';
 import { authOptions } from '@/app/api/auth/[...nextauth]/auth-option';
 import { getServerSession } from 'next-auth';
-import UpdateAppointment from '../update-appointment/page';
+import UpdateAppointment from '../update-appointment/page1';
 import DateTimer from '../new-appointment/date';
 import TableData from '../patients-table/table';
 

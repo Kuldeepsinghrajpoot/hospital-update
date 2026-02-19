@@ -30,6 +30,7 @@ import { useSession } from "next-auth/react"
 import { format } from 'date-fns'
 import { PrinterIcon, Edit } from "lucide-react"
 import { Card } from "@/components/ui/card"
+import { Update } from "../update-appointment/update"
 
 // Dynamically import DeleteAppointment
 const DeleteAppointment = dynamic(() => import('../delete-appointment/page'), { ssr: false })
@@ -148,9 +149,11 @@ const columns = (role: string | undefined): ColumnDef<Patient>[] => {
       id: "update",
       header: columnHeaders.update,
       cell: ({ row }) => (
-        <Link className="bg-gray-200 p-1 rounded" href={`/dashboard/update-appointment?id=${row.original._id}`}>
-          <Edit className="text-gray-500 dark:text-white" />
-        </Link>
+        <div>
+          {/* {row.original._id} */}
+          <Update id={row.original._id} />
+        </div>
+
       ),
     },
     {
@@ -158,7 +161,7 @@ const columns = (role: string | undefined): ColumnDef<Patient>[] => {
       header: columnHeaders.print,
       cell: ({ row }) => (
         <Link className="bg-gray-200" href={`/appointment-print/${row.original._id}`} target='_blank'>
-          <PrinterIcon className=' text-gray-500 dark:text-white'/>
+          <PrinterIcon className=' text-gray-500 dark:text-white' />
         </Link>
       ),
     },
