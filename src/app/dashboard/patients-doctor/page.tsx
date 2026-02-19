@@ -19,14 +19,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { Printer, Trash2 } from 'lucide-react';
 import axios from 'axios';
-import Link from 'next/link';
-import DeleteAppointment from '../delete-appointment/page';
 import { authOptions } from '@/app/api/auth/[...nextauth]/auth-option';
 import { getServerSession } from 'next-auth';
-import UpdateAppointment from '../update-appointment/page1';
-import DateTimer from '../new-appointment/date';
 import TableData from '../patients-table/table';
 
 interface Patient {
@@ -39,10 +34,7 @@ interface Patient {
   createdAt: string;
 }
 
-interface ApiResponse {
-  patients: Patient[];
-  totalPages: number;
-}
+
 
 // Fetch data with type annotation
 async function getData({name}: {name: string}) {
